@@ -1,0 +1,1951 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+
+<script language="javascript" src="PANcard%20Registration%20Form_files/NewPanApp.js"> </script>
+<script language="javascript" src="PANcard%20Registration%20Form_files/Age_Check.js"> </script>
+<script language="javascript">
+
+var arraySelectPOI_SELECTED ="";
+var arraySelectPOA_SELECTED ="";
+var R_STATE_SELECTED ="";
+var O_STATE_SELECTED ="";
+var REP_STATE_SELECTED = "";
+var arraySelectPOIRA_SELECTED = "";
+var arraySelectPOARA_SELECTED = "";
+var countryMasterForTelNum_SELECTED = "";
+var selectCountryPAN_R_COUNTRY_SELECTED = "";
+var selectCountryPAN_O_COUNTRY_SELECTED = "";
+
+
+function invalidChars(){
+	var length = document.newPanApp.elements.length;
+	for( i = 0; i < length; i++ ) {
+		var valueAtI = document.newPanApp.elements[i].value;
+		if(( valueAtI.indexOf("~") >= 0) || ( valueAtI.indexOf("^") >= 0)) {
+			alert("Please do not enter '~' or '^'");
+			document.newPanApp.elements[i].focus();
+			return false;
+		}
+	}
+	return true;
+}
+function eMailValidation() {
+	 var eMail = document.newPanApp.PAN_EMAIL.value;
+	 if (eMail!= "") {
+	  var eMailregex = new RegExp("^[A-Za-z0-9\\*\\#\\$\\&]+[A-Za-z0-9\\_\\*\\#\\$\\&]*(\\.[A-Za-z0-9\\_\\*\\#\\$\\&]+)*@[A-Za-z0-9\\_\\*\\#\\$\\&]+(\\.[A-Za-z0-9\\*\\#\\$\\&]+)+$");
+         if (!eMail.match(eMailregex)) {
+		      alert ("Please Enter valid e-mail ID");
+		      document.newPanApp.PAN_EMAIL.focus();
+              return false;
+         }
+	 }	 
+     return true;
+     
+}
+
+function checkSpecialChars(textValue) {
+	 if (textValue != "") {
+		// var re = /^[a-zA-Z0-9 \(\)\,\.\&\-\{\}\*\$\#\{\}\[\]\'\\\/]*$/;
+                 var re = /^[a-zA-Z0-9 \(\)\,\.\&\-\{\}\*\$\#\{\}\[\]\'\\\/\~\`\!\@\^\_\+\=\|\;\:\"\?\<\>\%]*$/;
+		 var resultValue = re.test(textValue);
+		 return resultValue;
+	 }  else {
+		  return true; 
+	 }
+}
+function disablePayment() {
+	if(document.newPanApp.PAN_PAY_MODE[0].checked) {
+		changeStatus("PAN_CHQ_", true);
+		changeStatus("PAN_DD_", false);
+	}
+	else if(document.newPanApp.PAN_PAY_MODE[1].checked) {
+		changeStatus("PAN_CHQ_", false);
+		changeStatus("PAN_DD_", true);
+	}
+	else if(document.newPanApp.PAN_PAY_MODE[2].checked) {
+		changeStatus("PAN_CHQ_", true);
+		changeStatus("PAN_DD_", true);
+	}
+	else if(document.newPanApp.PAN_PAY_MODE[3].checked) {
+		changeStatus("PAN_CHQ_", true);
+		changeStatus("PAN_DD_", true);
+	}
+
+}
+function disableTelNum() {
+    if(document.newPanApp.PAN_TEL_NUM_GRP[0].checked) {
+        document.getElementById("pantelnum1").disabled = true;
+     
+        document.getElementById("pantelnum1").value = "";
+        
+        document.getElementById("pantelnum2").disabled = false;
+    } else if(document.newPanApp.PAN_TEL_NUM_GRP[1].checked) {
+      
+        document.getElementById("pantelnum1").disabled = false;
+        document.getElementById("pantelnum2").disabled = false;
+    }
+}
+
+function changeStatus(name, val) {
+	var length = document.newPanApp.elements.length;
+	var nameAtI = "";
+	for( i = 0; i < length; i++ ) {
+		nameAtI = document.newPanApp.elements[i].name;
+		if( nameAtI.indexOf(name) == 0) {
+			eval("document.newPanApp."+nameAtI).disabled = val;
+		}
+	}
+}
+
+function disableFields(titleName){
+	var lstObj = document.newPanApp.PAN_LST_AL_NM;
+	var fstObj = document.newPanApp.PAN_FST_AL_NM;
+	var mdlObj = document.newPanApp.PAN_MDL_AL_NM;
+	var titleObj = eval("document.newPanApp."+titleName);
+	var cnt = titleObj.length;
+	if(cnt > 1){
+		for(i=0;i<cnt;i++){
+			titleObj = eval("document.newPanApp."+titleName+"["+i+"]");
+			titleObj.checked = false;
+			titleObj.disabled = true;
+		}
+	}
+	else{
+		titleObj.checked = false;
+		titleObj.disabled = true;
+	}
+	lstObj.value = "";
+	lstObj.disabled = true;
+	if(fstObj){
+		fstObj.value = "";
+		fstObj.disabled = true;
+	}
+	if(mdlObj){
+		mdlObj.value = "";
+		mdlObj.disabled = true;
+	}
+}
+function otherFlag(){
+	if(document.newPanApp.PAN_ANTH_NM_FLG[1].checked == true){
+		disableFields('PAN_AL_TITLE');
+	}
+}
+function enableFields(titleName){
+	var lstObj = document.newPanApp.PAN_LST_AL_NM;
+	var fstObj = document.newPanApp.PAN_FST_AL_NM;
+	var mdlObj = document.newPanApp.PAN_MDL_AL_NM;
+	var titleObj = eval("document.newPanApp."+titleName);
+	var cnt = titleObj.length;
+	if(cnt > 1){
+		for(i=0;i<cnt;i++){
+			titleObj = eval("document.newPanApp."+titleName+"["+i+"]");
+			titleObj.checked = false;
+			titleObj.disabled = false;
+		}
+	}
+	else{
+		titleObj.checked = true;
+		titleObj.disabled = false;
+	}
+	lstObj.disabled = false;
+	if(fstObj){
+		fstObj.disabled = false;
+	}
+	if(mdlObj){
+		mdlObj.disabled = false;
+	}
+}
+function disabledpdetails(){
+	var prfIdnty = document.newPanApp.PAN_PRF_IDNTY.options[document.newPanApp.PAN_PRF_IDNTY.selectedIndex].value;
+	var prfAddr = document.newPanApp.PAN_PRF_ADDR.options[document.newPanApp.PAN_PRF_ADDR.selectedIndex].value;
+	var dpIdObj = document.newPanApp.PAN_DP_ID;
+	var clientIdObj = document.newPanApp.PAN_CLIENT_ID;
+	if(prfIdnty == "004" || prfAddr == "003"){
+		dpIdObj.disabled = false;
+		clientIdObj.disabled = false;
+	}
+	else{
+		dpIdObj.disabled = true;
+		clientIdObj.disabled = true;
+	}
+}
+function CheckAO(){
+	var areaCd =document.newPanApp.PAN_AREA_CD.value; 
+	var aoType =document.newPanApp.PAN_AO_TYP.value;
+	var rCode =document.newPanApp.PAN_RNG_CD.value;
+	var aoNum =document.newPanApp.PAN_AO_NUM.value;
+	var fieldType_ind  =document.newPanApp.ARM_N_A_CAT[3].checked;
+
+
+	if(fieldType_ind == true) {
+		if(areaCd.toUpperCase() == "PNE" && aoType.toUpperCase()=="W" && rCode.toUpperCase()=="55"  && aoNum.toUpperCase()=="3") {
+			alert("When Other Individuals category is selected AO Code pertaining to Defence Personnel cannot be selected. Please select valid AO code details.");
+			document.newPanApp.PAN_AREA_CD.focus(); 
+			return false; 
+		}
+		if(areaCd.toUpperCase() == "MUM" && aoType.toUpperCase()=="W" && rCode.toUpperCase()=="11"  && aoNum.toUpperCase()=="8") {
+			alert("When Other Individuals category is selected AO Code pertaining to Defence Personnel cannot be selected. Please select valid AO code details.");
+			document.newPanApp.PAN_AREA_CD.focus(); 
+			return false; 
+		}
+		if(areaCd.toUpperCase() == "DEL" && aoType.toUpperCase()=="W" && rCode.toUpperCase()=="72"  && aoNum.toUpperCase()=="2") {
+			alert("When Other Individuals category is selected AO Code pertaining to Defence Personnel cannot be selected. Please select valid AO code details.");
+			document.newPanApp.PAN_AREA_CD.focus(); 
+			return false; 
+		}
+	}
+
+
+	return true;
+
+}
+
+//New Function Add
+
+function disableLink() {
+	var fieldType_army  =document.newPanApp.ARM_N_A_CAT[0].checked;
+	var fieldType_navy  =document.newPanApp.ARM_N_A_CAT[1].checked;
+	var fieldType_air  =document.newPanApp.ARM_N_A_CAT[2].checked;
+	var areaCd =document.newPanApp.PAN_AREA_CD;
+	var aoType =document.newPanApp.PAN_AO_TYP;
+	var rCode =document.newPanApp.PAN_RNG_CD;
+	var aoNum =document.newPanApp.PAN_AO_NUM;
+	if(fieldType_army  == true || fieldType_navy == true || fieldType_air == true ){
+		document.getElementById('hide_ao').style.display = "none";
+		areaCd.readOnly=true;
+		aoType.readOnly=true;
+		aoNum.readOnly=true;
+		rCode.readOnly=true;
+	}else {
+		document.getElementById('hide_ao').style.display = "block";
+	}
+
+}
+
+
+
+//End
+
+
+
+function loadAoDetails(id,aobject,cid){
+	var areaCd =document.newPanApp.PAN_AREA_CD;
+	var aoType =document.newPanApp.PAN_AO_TYP;
+	var rCode =document.newPanApp.PAN_RNG_CD;
+	var aoNum =document.newPanApp.PAN_AO_NUM;
+	
+	var fieldType =document.newPanApp.ARM_N_A_CAT[id].value;
+	var check =document.newPanApp.ARM_N_A_CAT[id].checked;
+
+
+	if(fieldType == '0'){
+		areaCd.value="PNE";
+		aoType.value="W";
+		rCode.value="55";
+		aoNum.value="3";
+		areaCd.readOnly=true;
+		aoType.readOnly=true;
+		aoNum.readOnly=true;
+		rCode.readOnly=true;
+		document.newPanApp.PAN_PT_13A.checked =true;
+
+		document.getElementById('hide_ao').style.display = "none";
+	}else if(fieldType == '1'){
+		areaCd.value="MUM";
+		aoType.value="W";
+		rCode.value="11";
+		aoNum.value="8";
+		areaCd.readOnly=true;
+		aoType.readOnly=true;
+		aoNum.readOnly=true;
+		rCode.readOnly=true;
+		document.newPanApp.PAN_PT_13A.checked =true;
+
+		document.getElementById('hide_ao').style.display = "none";
+	}else if(fieldType == '2'){
+		areaCd.value="DEL";
+		aoType.value="W";
+		rCode.value="72";
+		aoNum.value="2";
+		areaCd.readOnly=true;
+		aoType.readOnly=true;
+		aoNum.readOnly=true;
+		rCode.readOnly=true;
+		document.newPanApp.PAN_PT_13A.checked =true;
+
+		document.getElementById('hide_ao').style.display = "none";
+	}else{
+		areaCd.value="";
+		aoType.value="";
+		rCode.value="";
+		aoNum.value="";
+
+		areaCd.readOnly=false;
+		aoType.readOnly=false;
+		aoNum.readOnly=false;
+		rCode.readOnly=false;
+
+		document.newPanApp.PAN_PT_13A.checked =false;
+
+		document.getElementById('hide_ao').style.display = "block";
+	}         
+
+	patchState(id);                    
+}
+
+function hov(loc,cls) { 
+	if(loc.className) {
+		loc.className=cls;
+	}
+}
+
+function linkDisplay(aobject,cid,fieldType) {
+	if(fieldType== 4){
+		document.getElementById(cid).style.display="block"
+	}else{
+		document.getElementById(cid).style.display="none"
+	}
+}
+
+function disableOther(){
+	var cat1= document.newPanApp.ARM_N_A_CAT[0].checked;
+	var cat2 =document.newPanApp.ARM_N_A_CAT[1].checked;
+	var cat3=document.newPanApp.ARM_N_A_CAT[2].checked;
+	if(cat1 || cat2 || cat3){
+		
+	}
+}
+
+function checkCondition(){
+	var cat1= document.newPanApp.ARM_N_A_CAT[0].checked;
+	var cat2 =document.newPanApp.ARM_N_A_CAT[1].checked;
+	var cat3=document.newPanApp.ARM_N_A_CAT[2].checked;
+	if(cat1 || cat2 || cat3){
+		document.newPanApp.PAN_PT_13A.checked =true;
+	}
+}
+
+
+function checkNameHashValues(){
+	var hashFlag = true;
+	hashFlag = checkLastName(document.newPanApp.PAN_LST_MN_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_LST_MN_NM.focus();
+		alert("Please do not write special characters in Last Name field");
+		return hashFlag;
+	}
+	hashFlag = checkRANameValue(document.newPanApp.PAN_FST_MN_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_FST_MN_NM.focus();
+		alert("Please do not write special characters in First Name field");
+		return hashFlag;
+	}
+	hashFlag = checkRANameValue(document.newPanApp.PAN_MDL_MN_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_MDL_MN_NM.focus();
+		alert("Please do not write special characters in Middle Name field");
+		return hashFlag;
+	}
+	hashFlag = checkCardName(document.newPanApp.PAN_CRD_MN_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_CRD_MN_NM.focus();
+		alert("Please do not write special characters in Name on card field");
+		return hashFlag;
+	}
+	hashFlag = checkAlNameValue(document.newPanApp.PAN_LST_AL_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_LST_AL_NM.focus();
+		alert("Please do not write special characters or Numbers in Last other Name field");
+		return hashFlag;
+	}
+	hashFlag = checkAlNameValue(document.newPanApp.PAN_FST_AL_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_FST_AL_NM.focus();
+		alert("Please do not write special characters or Numbers in First other Name field");
+		return hashFlag;
+	}
+	hashFlag = checkAlNameValue(document.newPanApp.PAN_MDL_AL_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_MDL_AL_NM.focus();
+		alert("Please do not write special characters or Numbers in Middle other Name field");
+		return hashFlag;
+	}
+	hashFlag = checkLastName(document.newPanApp.PAN_LST_FTHR_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_LST_FTHR_NM.focus();
+		alert("Please do not write special characters in Father Last Name field");
+		return hashFlag;
+	}
+	hashFlag = checkRANameValue(document.newPanApp.PAN_FST_FTHR_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_FST_FTHR_NM.focus();
+		alert("Please do not write special characters in Father First  Name field");
+		return hashFlag;
+	}
+	hashFlag = checkRANameValue(document.newPanApp.PAN_MDL_FTHR_NM.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_MDL_FTHR_NM.focus();
+		alert("Please do not write special characters in Father Middle Name field");
+		return hashFlag;
+	}
+	hashFlag = checkLastNameRA(document.newPanApp.PAN_LST_NM_REP.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_LST_NM_REP.focus();
+		alert("Please do not write special characters in RA Last Name field");
+		return hashFlag;
+	}
+	hashFlag = checkRANameValue(document.newPanApp.PAN_FST_NM_REP.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_FST_NM_REP.focus();
+		alert("Please do not write special characters in RA First Name field");
+		return hashFlag;
+	}
+	hashFlag = checkRANameValue(document.newPanApp.PAN_MDL_NM_REP.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_MDL_NM_REP.focus();
+		alert("Please do not write special characters in RA Middle Name field");
+		return hashFlag;
+	}
+	hashFlag = checkSpecialChars(document.newPanApp.PAN_WRD_CRCL.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_WRD_CRCL.focus();
+		alert("Please do not write special characters in Ward/Circle field");
+		return hashFlag;
+	}
+    hashFlag = checkSpecialChars(document.newPanApp.PAN_RNG.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_RNG.focus();
+		alert("Please do not write special characters in Range field");
+		return hashFlag;
+	}
+	hashFlag = checkSpecialChars(document.newPanApp.PAN_COMSNR.value);
+	if(!hashFlag) {
+		document.newPanApp.PAN_COMSNR.focus();
+		alert("Please do not write special characters in Commissioner field");
+		return hashFlag;
+	}hashFlag = checkSpecialChars(document.newPanApp.PAN_DD_BANK_NM.value);
+        if(!hashFlag) {
+               document.newPanApp.PAN_DD_BANK_NM.focus();
+               alert("Please do not write special characters in Demand Draft Bank Name field");
+               return hashFlag;
+        }
+        hashFlag = checkSpecialChars(document.newPanApp.PAN_CHQ_BANK_NM.value);
+        if(!hashFlag) {
+               document.newPanApp.PAN_CHQ_BANK_NM.focus();
+               alert("Please do not write special characters in  Cheque bank name field");
+               return hashFlag;
+        }
+        hashFlag = checkSpecialChars(document.newPanApp.PAN_CHQ_BRANCH.value);
+        if(!hashFlag) {
+               document.newPanApp.PAN_CHQ_BRANCH.focus();
+               alert("Please do not write special characters in Cheque branch name field");
+               return hashFlag;
+        }
+        hashFlag = checkSpecialChars(document.newPanApp.PAN_CHQ_LOCATION.value);
+        if(!hashFlag) {
+               document.newPanApp.PAN_CHQ_LOCATION.focus();
+               alert("Please do not write special characters in Cheque location field");
+               return hashFlag;
+        }
+
+	return hashFlag;
+}
+
+function checkLastName(textValue) {
+	if (textValue != "") {
+		var re = /^[0-9a-zA-Z \']*$/;
+		var resultValue = re.test(textValue);
+		if (resultValue == true) {
+			if(charCount(textValue) > 1) {
+				resultValue = false;
+			}
+		}
+		return resultValue;
+	} else {
+		return true;
+	}
+}
+function checkCardName(textValue) {
+	if (textValue != "") {
+		var re = /^[0-9a-zA-Z \'\.]*$/;
+		var resultValue = re.test(textValue);
+		if (resultValue == true) {
+			if(charCount(textValue) > 1) {
+				resultValue = false;
+			}
+		}
+		return resultValue;
+	} else {
+		return true;
+	}
+}
+
+function checkRANameValue(textValue) {
+	if (textValue != "") {
+		var re = /^[0-9a-zA-Z ]*$/;
+		var resultValue = re.test(textValue);
+		return resultValue;
+	}
+	else {
+		return true;
+	}
+}
+
+function checkAlNameValue(textValue) {
+	if (textValue != "") {
+		var re = /^[a-zA-Z ]*$/;
+		var resultValue = re.test(textValue);
+		return resultValue;
+	}
+	else {
+		return true;
+	}
+}
+
+function checkNameValue(textValue) {
+	//  alert(textValue);
+	if (textValue != "") {
+		var re = /^[a-zA-Z0-9 \#\.\-\{\}\(\)\$\*\[\]\,\\\/\&\']*$/;
+		var resultValue = re.test(textValue);
+		if (resultValue == true) {
+			//    alert("resultValue==true");
+			if(charCount(textValue) > 1) {
+
+				resultValue = false;
+			}
+		}
+		//    alert(resultValue);
+		return resultValue;
+	}
+	else {
+		return true;
+	}
+}
+
+
+function charCount(text) {
+	var count = 0;
+	for (i=0; i<text.length; i++) {
+		if (text.substring(i,i+1) == "'") {
+			count++;
+		}
+	}
+	return count;
+}
+
+
+
+function checkforHash(){
+	var flag = true;
+	flag = CheckAO();
+	if(!flag){
+		return false;
+	}
+	flag = getAge("document.newPanApp");
+    if(!flag){
+	    return false;
+    }
+	flag = invalidChars();
+	if(!flag){
+		return false;
+	}
+	flag = eMailValidation();
+    if(!flag)  {
+		return false;
+	}
+      
+	flag = checkNameHashValues();
+	if(!flag){
+		return false;
+	}
+	flag = sendHashValues();
+	if (!flag){
+		return false;
+	}
+	var returnValue =  onSubmitCheckPrivateLimited();
+	if (returnValue)
+		return true;
+	else
+		return false;
+
+	return true;
+}
+
+</script>
+<title>PANcard Registration Form</title>
+<!-- Last updated: 24 Sep 2004 11:14 -->
+<link href="PANcard%20Registration%20Form_files/BodyText.css" rel="stylesheet" type="text/css"><link href="PANcard%20Registration%20Form_files/link.css" rel="stylesheet" type="text/css"></head>
+
+
+
+
+
+<body leftmargin="0" topmargin="0" onclick="otherFlag()" onload="disableOther();bodyOnLoad();enabledropdown();disableLink();disablePayment();disabled13AB();disabled13Cdropdown();disabled13Bdropdown();disableTelNum();" bgcolor="#FFFFDD">
+
+<script language="javascript" src="PANcard%20Registration%20Form_files/NewPanApp.js"> </script> 
+
+<form method="POST" id="49A" action="NewPanApp" name="newPanApp" onsubmit="return checkforHash();">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td colspan="1" valign="TOP">
+
+<table background="PANcard%20Registration%20Form_files/TopHeaderbarYellowPart.gif" bgcolor="#FFCC00" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr>
+<td width="33%"><br></td>
+<td align="CENTER"><b>Form No. 49A</b></td>
+<td align="RIGHT" width="33%"><b>Form No. ITS 49A</b></td>
+</tr>
+</tbody><tbody>
+</tbody></table>
+
+</td>
+</tr>
+
+<tr bgcolor="#660000">
+<td colspan="4" align="CENTER" background="PANcard%20Registration%20Form_files/RedBar.gif">
+<b><font color="#FFFFFF">Application for Allotment of Permanent Account Number</font></b><br>
+<font color="FFFFFF" size="-1">Under Section 139A of the Income Tax Act, 1961</font><br>
+<i><font color="#FFFFFF">Fields marked with </font><font color="RED">*</font><font color="#FFFFFF"> (asterisk) are mandatory. </font></i>.
+<i>
+<font color="#FFFFFF">To avoid mistake(s), please refer </font><a href="https://tin.tin.nsdl.com/pan/Guidelines49A.html" target="new"><font color="#FF9900">guidelines</font></a><font color="#FFFFF"> and </font><a href="https://tin.tin.nsdl.com/pan/Instructions49A.html" target="new"><font color="#FF9900">instructions</font></a>
+</i>.
+</td>
+</tr>
+
+<tr bgcolor="#e0e0e0">
+<td><b></b></td>
+</tr>
+<tr>
+<td colspan="3">
+
+<div id="aoSearchFlg" class="content">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td colspan="2" align="right">Don`t know AO details? <a id="xyz" href="https://tin.tin.nsdl.com/pan2/servlet/AOSearch" target="new">Click here</a></td>
+</tr>
+</tbody></table>
+</div>
+<table border="1" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+
+
+
+<tbody><tr>
+<td colspan="2" valign="LEFT"><b>To,<br>&nbsp;&nbsp;&nbsp;The Assessing Officer</b></td>
+<td colspan="4"><b><font color="RED">*</font>If you are a Defence Personnel select the appropriate category</b>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Army</b>
+<input name="ARM_N_A_CAT" value="0" onclick="loadAoDetails('0',this,'aoSearchFlg')" type="radio" id="Defence_Personnel_Army">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Navy</b>
+<input name="ARM_N_A_CAT" value="1" onclick="loadAoDetails('1',this,'aoSearchFlg')" type="radio" id="Defence_Personnel_Navy">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Air Force</b>
+<input name="ARM_N_A_CAT" value="2" onclick="loadAoDetails('2',this,'aoSearchFlg')" type="radio" id="Defence_Personnel_Air_Force">
+<!--</FONT>-->
+</td>
+</tr>
+<tr align="LEFT" valign="TOP">
+<td><b>Ward/Circle</b></td>
+<td><input name="PAN_WRD_CRCL" size="25" maxlength="25" type="text" id="WardCircle"></td>
+<td colspan="2"><b>Other Individuals</b><input name="ARM_N_A_CAT" value="3" onclick="loadAoDetails('3',this,'aoSearchFlg')" type="radio" id="Other_Individuals"></td>
+<td colspan="2">
+<span style="display: block;" id="hide_ao">
+<b>Don`t know AO details?</b><br>
+<b>For Non International Taxation AO details </b><a id="xyz" href="https://tin.tin.nsdl.com/pan2/servlet/AOSearch" target="new">Click here</a><br>
+<b>For International Taxation AO details </b><a id="xyz" href="https://tin.tin.nsdl.com/pan2/servlet/InterAOSearch" target="new">Click here</a>
+</span>
+</td>
+</tr>
+<tr align="LEFT" valign="TOP">
+<td width="12%"><b>Range</b></td>
+<td width="12%"><input name="PAN_RNG" size="20" maxlength="20" type="text" id="Range"></td>
+<td width="12%"><b><font color="RED">*</font> Area Code</b></td>
+<td width="12%"><b><font color="RED">*</font> AO Type</b></td>
+<td width="12%"><b><font color="RED">*</font> Range Code</b></td>
+<td width="40%"><b><font color="RED">*</font> AO Number</b></td>
+</tr>
+<tr align="LEFT" valign="TOP">
+<td><b>Commissioner</b></td>
+<td><input name="PAN_COMSNR" size="20" maxlength="20" type="text" id="Commissioner"></td>
+<td><input name="PAN_AREA_CD" size="3" maxlength="3" type="text" id="Area_Code"></td>
+<td><input name="PAN_AO_TYP" size="2" maxlength="2" type="text" id="AO_Type"></td>
+<td><input name="PAN_RNG_CD" size="3" maxlength="3" type="text" id="Range_Code"></td>
+<td><input name="PAN_AO_NUM" size="2" maxlength="2" type="text" id="AO_Number"></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>
+Sir,<br>&nbsp;&nbsp;&nbsp; I/We hereby request that a permanent account number be allotted to me/us.<br>&nbsp;&nbsp;&nbsp;
+I/We give below necessary particulars:
+</td>
+</tr>
+</tbody></table>
+<p></p>
+<table border="1" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr bgcolor="#e0e0e0">
+<td colspan="2"><b><font color="RED">*</font> 1. Full Name</b><i>(Initials are not permitted in first and last name)</i></td>
+</tr>
+
+<tr>
+<td colspan="2"><b><b>Title</b>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Shri/Mr
+<input name="PAN_MN_TITL" value="1" type="radio" id="Title_Mr">
+&nbsp;&nbsp;&nbsp;&nbsp;
+Smt./Mrs.
+<input name="PAN_MN_TITL" value="2" type="radio" id="Title_Mrs">
+&nbsp;&nbsp;&nbsp;&nbsp;
+Kumari/Ms
+<input name="PAN_MN_TITL" value="3" type="radio"id="Title_Ms">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#a0a0a0d0d0d0">
+M/s
+</font>
+<!--
+-->
+</b></td>
+</tr>
+
+
+
+
+
+<tr>
+<td colspan="2">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td><b>Last Name/Surname</b><br><input name="PAN_LST_MN_NM" size="25" maxlength="25" type="text" id="Surname"></td>
+<td><b>First Name</b><br><input name="PAN_FST_MN_NM" size="25" maxlength="25" type="text" id="First_Name"></td>
+<td><b>Middle Name</b><br><input name="PAN_MDL_MN_NM" size="25" maxlength="25" type="text" id="Middle_Name"></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+
+<tr bgcolor="#e0e0e0">
+<td colspan="2"><b><font color="RED">*</font> 2. Name you would like printed on the card</b></td>
+</tr>
+
+
+
+
+<tr>
+<td colspan="2" valign="TOP"><input name="PAN_CRD_MN_NM" size="40" maxlength="85" type="text" id="Full_Name"><br>
+</td>
+</tr>
+
+
+<tr bgcolor="#e0e0e0">
+<td colspan="2"><b>&nbsp;&nbsp;3. Have you ever been known by any other name?</b>
+Yes <input name="PAN_ANTH_NM_FLG" value="Y" onclick="enableFields('PAN_AL_TITLE')" type="radio" id="NickName_Yes">
+&nbsp;&nbsp;&nbsp;&nbsp;
+No <input name="PAN_ANTH_NM_FLG" value="N" onclick="disableFields('PAN_AL_TITLE')" type="radio" id="NickName_No">
+</td>
+</tr>
+<tr bgcolor="#f0f0f0">
+<td colspan="2">If yes, please give that other name <i>(Initials are not permitted in first and last name)</i></td>
+</tr>
+
+
+
+
+<tr>
+<td colspan="2"><b><b>Title</b>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+Shri/Mr
+
+
+
+
+<input name="PAN_AL_TITLE" value="1" type="radio" id="NickName_Title_Mr">
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+Smt./Mrs.
+
+
+
+
+<input name="PAN_AL_TITLE" value="2" type="radio" id="NickName_Title_Mrs">
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+Kumari/Ms
+
+
+
+
+<input name="PAN_AL_TITLE" value="3" type="radio" id="NickName_Title_Ms">
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<font color="#a0a0a0d0d0d0">
+
+M/s
+
+</font> 
+
+</b></td>
+</tr>
+
+
+
+
+
+<tr>
+<td colspan="2">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+
+<td><b>Last Name/Surname</b><br><input name="PAN_LST_AL_NM" size="25" maxlength="25" type="text" id="NickName_Last_Name"></td>
+<td><b>First Name</b><br><input name="PAN_FST_AL_NM" size="25" maxlength="25" type="text" id="NickName_First_Name"></td>
+<td><b>Middle Name</b><br><input name="PAN_MDL_AL_NM" size="25" maxlength="25" type="text" id="NickName_Middle_Name"></td>
+
+
+
+
+
+</tr>
+</tbody></table>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<b><font color="RED">*</font> 4. Gender</b>
+</td><td>
+Male
+<input name="PAN_SEX" value="M" type="radio" id="Gender_Male">
+&nbsp;&nbsp;&nbsp;&nbsp;
+Female
+<input name="PAN_SEX" value="F" type="radio" id="Gender_Female">
+</td>
+</tr>
+
+
+	<tr>
+	<td><b><font color="RED">*</font> 5.
+
+	Date of Birth/Incorporation/Agreement/Partnership or Trust Deed/Formation of Body of Individuals/Association of Persons
+	</b></td>
+	<td>
+	<table border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+	<td><font size="-1"> DD </font> <br>
+	<select name="PAN_DT_BRTH_DD" id="Date_of_Birth_Day">
+	<option selected="selected" value=""> DD
+	</option><option value="01"> 1
+	</option><option value="02"> 2
+	</option><option value="03"> 3
+	</option><option value="04"> 4
+	</option><option value="05"> 5
+	</option><option value="06"> 6
+	</option><option value="07"> 7
+	</option><option value="08"> 8
+	</option><option value="09"> 9
+	</option><option value="10"> 10
+	</option><option value="11"> 11
+	</option><option value="12"> 12
+	</option><option value="13"> 13
+	</option><option value="14"> 14
+	</option><option value="15"> 15
+	</option><option value="16"> 16
+	</option><option value="17"> 17
+	</option><option value="18"> 18
+	</option><option value="19"> 19
+	</option><option value="20"> 20
+	</option><option value="21"> 21
+	</option><option value="22"> 22
+	</option><option value="23"> 23
+	</option><option value="24"> 24
+	</option><option value="25"> 25
+	</option><option value="26"> 26
+	</option><option value="27"> 27
+	</option><option value="28"> 28
+	</option><option value="29"> 29
+	</option><option value="30"> 30
+	</option><option value="31"> 31
+	</option></select>
+	</td>
+	<td><font size="-1"> MM </font><br>
+	<select name="PAN_DT_BRTH_MM" id="Date_of_Birth_Month">
+	<option selected="selected" value=""> MM
+	</option><option value="01"> JAN
+	</option><option value="02"> FEB
+	</option><option value="03"> MAR
+	</option><option value="04"> APR
+	</option><option value="05"> MAY
+	</option><option value="06"> JUN
+	</option><option value="07"> JUL
+	</option><option value="08"> AUG
+	</option><option value="09"> SEP
+	</option><option value="10"> OCT
+	</option><option value="11"> NOV
+	</option><option value="12"> DEC
+	</option></select>
+	</td>
+	<td><font size="-1"> YYYY </font><br>
+	<input name="PAN_DT_BRTH_YYYY" size="4" maxlength="4" type="text" id="Date_of_Birth_Year">
+	</td>
+	</tr>
+	</tbody></table>
+	</td>
+	</tr>
+
+<tr bgcolor="#e0e0e0">
+<td colspan="2">
+<b><font color="RED">*</font></b>
+<b> 6. Father's Name </b><i>(Even married women should give father's name only)<i>
+</i></i></td>
+</tr>
+
+
+
+
+
+
+<tr>
+<td colspan="2">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td><b>Last Name/Surname</b><br><input name="PAN_LST_FTHR_NM" size="25" maxlength="25" type="text" id="Father_Last_Name"></td>
+<td><b>First Name</b><br><input name="PAN_FST_FTHR_NM" size="25" maxlength="25" type="text" id="Father_First_Name"></td>
+<td><b>Middle Name</b><br><input name="PAN_MDL_FTHR_NM" size="25" maxlength="25" type="text" id="Father_Middle_Name"></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+
+
+
+<tr bgcolor="#e0e0e0">
+<td colspan="2"><b><font color="RED">*</font> 7. Address</b></td>
+</tr>
+
+<tr bgcolor="#f0f0f0">
+<td colspan="2">
+
+
+
+<b>(R) Residential Address</b>
+
+
+
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+<td width="40%">
+
+
+
+<b>Flat/Door/Block No.</b>
+
+
+
+</td>
+
+<td><input name="PAN_R_ADDR1" size="25" maxlength="25" type="text" id="Residential_Flat_No"></td>
+
+
+</tr>
+
+<tr>
+<td>
+
+
+
+<b>Name of Premises/Building/Village</b>
+
+
+
+</td>
+
+<td><input name="PAN_R_ADDR2" size="25" maxlength="25" type="text" id="Residential_Building"></td>
+
+</tr>
+
+<tr>
+<td>
+
+
+
+<b>Road/Street/Lane/Post Office</b>
+
+
+
+</td>
+
+<td><input name="PAN_R_ADDR3" size="25" maxlength="25" type="text" id="Residential_Road"></td>
+
+</tr>
+
+<tr>
+<td>
+
+
+
+<b>Area/Locality/Taluka/Sub-Division</b>
+
+
+
+</td>
+
+<td><input name="PAN_R_ADDR4" size="25" maxlength="25" type="text" id="Residential_Area"></td>
+
+</tr>
+<tr>
+<td>
+
+
+
+<b>Town/City/District</b>
+
+
+
+</td>
+
+<td><input name="PAN_R_ADDR5" size="25" maxlength="25" type="text" id="Residential_Town"></td>
+
+</tr>
+<tr>
+<td>
+
+
+
+<b>State/Union Territory</b>
+
+
+
+</td>
+
+
+<td>
+<select name="PAN_R_STATE" onchange="patchPINcode('R');patchAmount();patchDocuments();" id="Residential_State">
+
+<option selected="selected" value="">-- Please select --</option><option value="1">Andaman &amp; Nicobar Islands</option><option value="2">Andhra Pradesh</option><option value="3">Arunachal Pradesh</option><option value="4">Assam</option><option value="5">Bihar</option><option value="6">Chandigarh</option><option value="33">Chhattisgarh</option><option value="7">Dadra &amp; Nagar Haveli</option><option value="8">Daman &amp; Diu</option><option value="9">Delhi</option><option value="10">Goa</option><option value="11">Gujarat</option><option value="12">Haryana</option><option value="13">Himachal Pradesh</option><option value="14">Jammu &amp; Kashmir</option><option value="35">Jharkhand</option><option value="15">Karnataka</option><option value="16">Kerala</option><option value="17">Lakhswadeep</option><option value="18">Madhya Pradesh</option><option value="19">Maharashtra</option><option value="20">Manipur</option><option value="21">Meghalaya</option><option value="22">Mizoram</option><option value="23">Nagaland</option><option value="24">Orissa</option><option value="25">Pondicherry</option><option value="26">Punjab</option><option value="27">Rajasthan</option><option value="28">Sikkim</option><option value="29">Tamil Nadu</option><option value="30">Tripura</option><option value="31">Uttar Pradesh</option><option value="32">West Bengal</option><option value="34">Uttaranchal</option><option value="99">Outside India</option></select>
+</td>
+
+</tr>
+
+<tr>
+<td><b>Pin</b> <i>(Indicating PIN is mandatory)</i></td>
+<td><input name="PAN_R_PIN" size="6" maxlength="6" type="text" id="Residential_Pincode"></td>
+</tr>
+<tr>
+<td><b>Country</b></td>
+<td>
+
+<select disabled="disabled" name="PAN_R_COUNTRY" id="selectPAN_R_COUNTRY">
+
+<option selected="selected" value="-1">-- Please select --</option><option value="AR">ARGENTINA</option><option value="AU">AUSTRALIA</option><option value="AT">AUSTRIA</option><option value="BH">BAHRAIN</option><option value="BD">BANGLADESH</option><option value="BB">BARBADOS</option><option value="BY">BELARUS</option><option value="BE">BELGIUM</option><option value="BM">BERMUDA</option><option value="BT">BHUTAN</option><option value="BW">BOTSWANA</option><option value="BR">BRAZIL</option><option value="BN">BRUNEI DARUSSALAM</option><option value="BG">BULGARIA</option><option value="KH">CAMBODIA</option><option value="CA">CANADA</option><option value="CV">CAPE VERDE</option><option value="KY">CAYMAN ISLANDS</option><option value="CN">CHINA</option><option value="CU">CUBA</option><option value="CY">CYPRUS</option><option value="KP">DEMOCRATIC PEOPLE'S REPUBLIC OF KOREA (North Korea)</option><option value="DK">DENMARK</option><option value="EG">EGYPT</option><option value="SV">EL SALVADOR</option><option value="ER">ERITREA</option><option value="EE">ESTONIA</option><option value="ET">ETHIOPIA</option><option value="FJ">FIJI</option><option value="FI">FINLAND</option><option value="FR">FRANCE</option><option value="GE">GEORGIA</option><option value="DE">GERMANY</option><option value="GH">GHANA</option><option value="GR">GREECE</option><option value="GY">GUYANA</option><option value="HK">HONG KONG</option><option value="HU">HUNGARY</option><option value="IS">ICELAND</option><option value="ID">INDONESIA</option><option value="IQ">IRAQ</option><option value="IE">IRELAND</option><option value="IR">ISLAMIC REPUBLIC OF IRAN</option><option value="IL">ISRAEL</option><option value="IT">ITALY</option><option value="JP">JAPAN</option><option value="JO">JORDAN</option><option value="KE">KENYA</option><option value="KW">KUWAIT</option><option value="LV">LATVIA</option><option value="LU">LUXEMBOURG</option><option value="MO">MACAO</option><option value="MW">MALAWI</option><option value="MY">MALAYSIA</option><option value="MV">MALDIVES</option><option value="MU">MAURITIUS</option><option value="MX">MEXICO</option><option value="MN">MONGOLIA</option><option value="MA">MOROCCO</option><option value="NA">NAMIBIA</option><option value="NR">NAURU</option><option value="NP">NEPAL</option><option value="NL">NETHERLANDS</option><option value="NZ">NEW ZEALAND</option><option value="NE">NIGER</option><option value="NG">NIGERIA</option><option value="NO">NORWAY</option><option value="OM">OMAN</option><option value="PK">PAKISTAN</option><option value="PA">PANAMA</option><option value="PG">PAPUA NEW GUINEA</option><option value="PH">PHILIPPINES</option><option value="PL">POLAND</option><option value="PT">PORTUGAL</option><option value="QA">QATAR</option><option value="KR">REPUBLIC OF KOREA (South Korea)</option><option value="RO">ROMANIA</option><option value="RU">RUSSIAN FEDERATION</option><option value="RW">RWANDA</option><option value="WS">SAMOA</option><option value="SA">SAUDI ARABIA</option><option value="SN">SENEGAL</option><option value="SG">SINGAPORE</option><option value="ZA">SOUTH AFRICA</option><option value="ES">SPAIN</option><option value="LK">SRI LANKA</option><option value="SD">SUDAN</option><option value="SE">SWEDEN</option><option value="CH">SWITZERLAND</option><option value="TW">TAIWAN, PROVINCE OF CHINA</option><option value="TH">THAILAND</option><option value="CD">THE DEMOCRATIC REPUBLIC OF THE CONGO</option><option value="TN">TUNISIA</option><option value="TR">TURKEY</option><option value="UG">UGANDA</option><option value="UA">UKRAINE</option><option value="AE">UNITED ARAB EMIRATES</option><option value="GB">UNITED KINGDOM</option><option value="TZ">UNITED REPUBLIC OF TANZANIA</option><option value="US">UNITED STATES</option><option value="UY">URUGUAY</option><option value="VN">VIET NAM</option><option value="YE">YEMEN</option><option value="ZM">ZAMBIA</option><option value="ZW">ZIMBABWE</option></select>
+</td>
+</tr>
+
+<tr>
+<td><b>Zip</b></td>
+<td><input disabled="disabled" name="PAN_R_ZIP" size="6" maxlength="6" type="text" id="Residential_Zipcode"></td>
+</tr>
+
+<tr bgcolor="#f0f0f0">
+<td colspan="2"><b>(O) Office Address</b></td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+<td><b>Name of Office</b></td>
+<td><input name="PAN_OFF_NM" size="64" maxlength="64" type="text" id="Office_Name"></td>
+</tr>
+<tr>
+<td><b>Flat/Door/Block No.</b></td>
+<td><input name="PAN_O_ADDR1" size="25" maxlength="25" type="text" id="Office_Flat"></td>
+</tr>
+<tr>
+<td><b>Name of Premises/Building/Village</b></td>
+<td><input name="PAN_O_ADDR2" size="25" maxlength="25" type="text" id="Office_Building"></td>
+</tr>
+<tr>
+<td><b>Road/Street/Lane/Post Office</b></td>
+<td><input name="PAN_O_ADDR3" size="25" maxlength="25" type="text" id="Office_Road"></td>
+</tr>
+<tr>
+<td><b>Area/Locality/Taluka/Sub-Division</b></td>
+<td><input name="PAN_O_ADDR4" size="25" maxlength="25" type="text" id="Office_Area"></td>
+</tr>
+<tr>
+<td><b>Town/City/District</b></td>
+<td><input name="PAN_O_ADDR5" size="25" maxlength="25" type="text" id="Office_Town"></td>
+</tr>
+<tr>
+<td><b>State/Union Territory</b></td>
+<td>
+<select name="PAN_O_STATE" onchange="patchPINcode('O');patchAmount();patchDocuments();" id="Office_State">
+<option selected="selected" value="">-- Please select --</option><option value="1">Andaman &amp; Nicobar Islands</option><option value="2">Andhra Pradesh</option><option value="3">Arunachal Pradesh</option><option value="4">Assam</option><option value="5">Bihar</option><option value="6">Chandigarh</option><option value="33">Chhattisgarh</option><option value="7">Dadra &amp; Nagar Haveli</option><option value="8">Daman &amp; Diu</option><option value="9">Delhi</option><option value="10">Goa</option><option value="11">Gujarat</option><option value="12">Haryana</option><option value="13">Himachal Pradesh</option><option value="14">Jammu &amp; Kashmir</option><option value="35">Jharkhand</option><option value="15">Karnataka</option><option value="16">Kerala</option><option value="17">Lakhswadeep</option><option value="18">Madhya Pradesh</option><option value="19">Maharashtra</option><option value="20">Manipur</option><option value="21">Meghalaya</option><option value="22">Mizoram</option><option value="23">Nagaland</option><option value="24">Orissa</option><option value="25">Pondicherry</option><option value="26">Punjab</option><option value="27">Rajasthan</option><option value="28">Sikkim</option><option value="29">Tamil Nadu</option><option value="30">Tripura</option><option value="31">Uttar Pradesh</option><option value="32">West Bengal</option><option value="34">Uttaranchal</option><option value="99">Outside India</option></select>
+</td>
+</tr>
+<tr>
+<td><b>Pin</b> <i>(Indicating PIN is mandatory)</i></td>
+<td><input name="PAN_O_PIN" size="6" maxlength="6" type="text" id="Office_Pincode"></td>
+</tr>
+<tr>
+<td><b>Country</b></td>
+<td>
+<select disabled="disabled" name="PAN_O_COUNTRY" id="selectPAN_O_COUNTRY">
+
+
+<option selected="selected" value="-1">-- Please select --</option><option value="AR">ARGENTINA</option><option value="AU">AUSTRALIA</option><option value="AT">AUSTRIA</option><option value="BH">BAHRAIN</option><option value="BD">BANGLADESH</option><option value="BB">BARBADOS</option><option value="BY">BELARUS</option><option value="BE">BELGIUM</option><option value="BM">BERMUDA</option><option value="BT">BHUTAN</option><option value="BW">BOTSWANA</option><option value="BR">BRAZIL</option><option value="BN">BRUNEI DARUSSALAM</option><option value="BG">BULGARIA</option><option value="KH">CAMBODIA</option><option value="CA">CANADA</option><option value="CV">CAPE VERDE</option><option value="KY">CAYMAN ISLANDS</option><option value="CN">CHINA</option><option value="CU">CUBA</option><option value="CY">CYPRUS</option><option value="KP">DEMOCRATIC PEOPLE'S REPUBLIC OF KOREA (North Korea)</option><option value="DK">DENMARK</option><option value="EG">EGYPT</option><option value="SV">EL SALVADOR</option><option value="ER">ERITREA</option><option value="EE">ESTONIA</option><option value="ET">ETHIOPIA</option><option value="FJ">FIJI</option><option value="FI">FINLAND</option><option value="FR">FRANCE</option><option value="GE">GEORGIA</option><option value="DE">GERMANY</option><option value="GH">GHANA</option><option value="GR">GREECE</option><option value="GY">GUYANA</option><option value="HK">HONG KONG</option><option value="HU">HUNGARY</option><option value="IS">ICELAND</option><option value="ID">INDONESIA</option><option value="IQ">IRAQ</option><option value="IE">IRELAND</option><option value="IR">ISLAMIC REPUBLIC OF IRAN</option><option value="IL">ISRAEL</option><option value="IT">ITALY</option><option value="JP">JAPAN</option><option value="JO">JORDAN</option><option value="KE">KENYA</option><option value="KW">KUWAIT</option><option value="LV">LATVIA</option><option value="LU">LUXEMBOURG</option><option value="MO">MACAO</option><option value="MW">MALAWI</option><option value="MY">MALAYSIA</option><option value="MV">MALDIVES</option><option value="MU">MAURITIUS</option><option value="MX">MEXICO</option><option value="MN">MONGOLIA</option><option value="MA">MOROCCO</option><option value="NA">NAMIBIA</option><option value="NR">NAURU</option><option value="NP">NEPAL</option><option value="NL">NETHERLANDS</option><option value="NZ">NEW ZEALAND</option><option value="NE">NIGER</option><option value="NG">NIGERIA</option><option value="NO">NORWAY</option><option value="OM">OMAN</option><option value="PK">PAKISTAN</option><option value="PA">PANAMA</option><option value="PG">PAPUA NEW GUINEA</option><option value="PH">PHILIPPINES</option><option value="PL">POLAND</option><option value="PT">PORTUGAL</option><option value="QA">QATAR</option><option value="KR">REPUBLIC OF KOREA (South Korea)</option><option value="RO">ROMANIA</option><option value="RU">RUSSIAN FEDERATION</option><option value="RW">RWANDA</option><option value="WS">SAMOA</option><option value="SA">SAUDI ARABIA</option><option value="SN">SENEGAL</option><option value="SG">SINGAPORE</option><option value="ZA">SOUTH AFRICA</option><option value="ES">SPAIN</option><option value="LK">SRI LANKA</option><option value="SD">SUDAN</option><option value="SE">SWEDEN</option><option value="CH">SWITZERLAND</option><option value="TW">TAIWAN, PROVINCE OF CHINA</option><option value="TH">THAILAND</option><option value="CD">THE DEMOCRATIC REPUBLIC OF THE CONGO</option><option value="TN">TUNISIA</option><option value="TR">TURKEY</option><option value="UG">UGANDA</option><option value="UA">UKRAINE</option><option value="AE">UNITED ARAB EMIRATES</option><option value="GB">UNITED KINGDOM</option><option value="TZ">UNITED REPUBLIC OF TANZANIA</option><option value="US">UNITED STATES</option><option value="UY">URUGUAY</option><option value="VN">VIET NAM</option><option value="YE">YEMEN</option><option value="ZM">ZAMBIA</option><option value="ZW">ZIMBABWE</option></select>
+</td>
+</tr>
+<tr>
+<td><b>Zip</b> </td>
+<td><input disabled="disabled" name="PAN_O_ZIP" size="6" maxlength="6" type="text" id="Office_Zipcode"></td>
+</tr>
+
+
+
+<tr>
+<td align="LEFT"><b><font color="RED">*</font> 8. Address for communication</b></td>
+<td>
+
+
+
+
+<table><tbody><tr><td width="200px">
+
+
+Residential
+
+
+
+
+<input name="PAN_CMNC_ADDR_FLG" value="R" onclick="patchAmount();patchDocuments();" type="radio" id="Communication_Address_Residential">
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+Office
+<input name="PAN_CMNC_ADDR_FLG" value="O" onclick="patchAmount();patchDocuments();" type="radio" id="Communication_Address_Office">
+
+
+</td><td><i><b><div style="float:right; color:red">In case office 
+address is selected as communication address, proof of residence address
+ as well as office address is to be submitted to NSDL.</div></b></i></td></tr></tbody></table>
+</td>
+</tr>
+
+   
+  
+  
+  
+  
+  
+
+  <tr>
+  <td><b> <font color="RED">*</font> 9. Telephone No.</b><br>
+          (Country code is compulsory)</td>
+  <td>
+  <table border="1">
+  <tbody><tr>
+
+  <td colspan="3" align="LEFT" width="100%">
+        <font size="-1">Country code (ISD code)</font><br>
+        <select name="PAN_TEL_CC" id="selectCountryCodeForTelNum" id="ISD_Code">
+        <option selected="selected" value="-1">-- Please select --</option><option value="54">ARGENTINA (54)</option><option value="A61">AUSTRALIA (61)</option><option value="43">AUSTRIA (43)</option><option value="973">BAHRAIN (973)</option><option value="880">BANGLADESH (880)</option><option value="1246">BARBADOS (1246)</option><option value="375">BELARUS (375)</option><option value="32">BELGIUM (32)</option><option value="1441">BERMUDA (1441)</option><option value="975">BHUTAN (975)</option><option value="267">BOTSWANA (267)</option><option value="55">BRAZIL (55)</option><option value="673">BRUNEI DARUSSALAM (673)</option><option value="359">BULGARIA (359)</option><option value="855">CAMBODIA (855)</option><option value="A1">CANADA (1)</option><option value="238">CAPE VERDE (238)</option><option value="1345">CAYMAN ISLANDS (1345)</option><option value="86">CHINA (86)</option><option value="53">CUBA (53)</option><option value="357">CYPRUS (357)</option><option value="850">DEMOCRATIC PEOPLE'S REPUBLIC OF KOREA(NORTH KOREA) (850)</option><option value="45">DENMARK (45)</option><option value="20">EGYPT (20)</option><option value="503">EL SALVADOR (503)</option><option value="291">ERITREA (291)</option><option value="372">ESTONIA (372)</option><option value="251">ETHIOPIA (251)</option><option value="679">FIJI (679)</option><option value="358">FINLAND (358)</option><option value="33">FRANCE (33)</option><option value="995">GEORGIA (995)</option><option value="49">GERMANY (49)</option><option value="233">GHANA (233)</option><option value="30">GREECE (30)</option><option value="592">GUYANA (592)</option><option value="852">HONG KONG (852)</option><option value="36">HUNGARY (36)</option><option value="354">ICELAND (354)</option><option value="91">INDIA (91)</option><option value="62">INDONESIA (62)</option><option value="964">IRAQ (964)</option><option value="353">IRELAND (353)</option><option value="98">ISLAMIC REPUBLIC OF IRAN (98)</option><option value="972">ISRAEL (972)</option><option value="39">ITALY (39)</option><option value="81">JAPAN (81)</option><option value="962">JORDAN (962)</option><option value="254">KENYA (254)</option><option value="965">KUWAIT (965)</option><option value="371">LATVIA (371)</option><option value="352">LUXEMBOURG (352)</option><option value="853">MACAO (853)</option><option value="265">MALAWI (265)</option><option value="60">MALAYSIA (60)</option><option value="960">MALDIVES (960)</option><option value="230">MAURITIUS (230)</option><option value="52">MEXICO (52)</option><option value="976">MONGOLIA (976)</option><option value="A212">MOROCCO (A212)</option><option value="B264">NAMIBIA (264)</option><option value="674">NAURU (674)</option><option value="977">NEPAL (977)</option><option value="31">NETHERLANDS (31)</option><option value="A64">NEW ZEALAND (64)</option><option value="227">NIGER (227)</option><option value="234">NIGERIA (234)</option><option value="B47">NORWAY (47)</option><option value="968">OMAN (968)</option><option value="92">PAKISTAN (92)</option><option value="507">PANAMA (507)</option><option value="675">PAPUA NEW GUINEA (675)</option><option value="63">PHILIPPINES (63)</option><option value="48">POLAND (48)</option><option value="351">PORTUGAL (351)</option><option value="974">QATAR (974)</option><option value="82">REPUBLIC OF KOREA(SOUTH KOREA) (82)</option><option value="40">ROMANIA (40)</option><option value="B7">RUSSIAN FEDERATION (7)</option><option value="250">RWANDA (250)</option><option value="685">SAMOA (685)</option><option value="966">SAUDI ARABIA (966)</option><option value="221">SENEGAL (221)</option><option value="65">SINGAPORE (65)</option><option value="27">SOUTH AFRICA (27)</option><option value="34">SPAIN (34)</option><option value="94">SRI LANKA (94)</option><option value="B249">SUDAN (249)</option><option value="46">SWEDEN (46)</option><option value="41">SWITZERLAND (41)</option><option value="886">TAIWAN, PROVINCE OF CHINA (886)</option><option value="66">THAILAND (66)</option><option value="243">THE DEMOCRATIC REPUBLIC OF THE CONGO (243)</option><option value="216">TUNISIA (216)</option><option value="90">TURKEY (90)</option><option value="256">UGANDA (256)</option><option value="380">UKRAINE (380)</option><option value="971">UNITED ARAB EMIRATES (971)</option><option value="44">UNITED KINGDOM (44)</option><option value="255">UNITED REPUBLIC OF TANZANIA (255)</option><option value="B1">UNITED STATES (1)</option><option value="598">URUGUAY (598)</option><option value="84">VIET NAM (84)</option><option value="967">YEMEN (967)</option><option value="260">ZAMBIA (260)</option><option value="263">ZIMBABWE (263)</option></select>
+  </td>
+
+
+
+</tr>
+<tr>
+
+<td colspan="1">
+<input name="PAN_TEL_NUM_GRP" id="panmobnum" value="M" onchange="disableTelNum();" type="RADIO" id="Is_Mobile"> Mobile No.
+</td>
+
+<td colspan="1">
+<input name="PAN_TEL_NUM_GRP" id="pantelnum" value="T" onchange="disableTelNum();" type="RADIO" id="Is_Telephone"> Telephone No.
+</td>
+
+
+
+</tr>
+<tr>
+
+<!-- CHANGES COMPLETED FOR TELEPHONE NUMBER GIVEN ON 9-FEB-2012 -->
+  <td align="LEFT" width="100%">
+      <font size="-1">Area/STD Code</font><br>
+      <input name="PAN_TEL_STD" id="pantelnum1" size="10" maxlength="7" type="text" id="STD_Code">
+  </td>
+  <td align="LEFT" width="100%">
+      <font size="-1">Telephone No./Mobile No.</font><br>
+      <input name="PAN_TEL_NUM" id="pantelnum2" size="13" maxlength="13" type="text" id="Mobile_No">
+  </td>
+
+  </tr>
+  </tbody></table>
+  </td>
+  </tr>
+
+
+<tr>
+<td><b>E-mail ID</b></td>
+<td colspan="3"><input name="PAN_EMAIL" size="40" maxlength="40" type="text" id="Email_Address"></td>
+</tr>
+
+
+
+<tr>
+<td colspan="2">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td colspan="6" valign="LEFT"><b><font color="RED">*</font> 10. Status of the Applicant</b></td>
+</tr>
+<tr>
+<td align="RIGHT"><nowrap>
+
+
+
+Individual (P)
+
+
+
+	</nowrap></td>
+	<td>
+
+	<input name="PAN_APPLCNT_STATUS" value="P" checked="checked" type="radio" id="Applicant_Status">
+
+
+
+	</td>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Firm (F)
+
+	</font>
+
+	</nowrap></td>
+	<td>
+
+
+
+	<br>
+
+	</td>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Body of Individuals (B)
+
+	</font>
+
+	</nowrap></td>
+	<td>
+
+
+
+	<br>
+
+	</td>
+	</tr>
+	<tr>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Hindu Undivided Family (H)
+
+	</font>
+
+	</nowrap></td>
+
+	<td>
+
+
+
+	<br>
+
+	</td>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Association of Persons (A)
+
+	</font>
+
+	</nowrap></td>
+	<td>
+
+
+
+	<br>
+
+	</td>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Local Authority (L)
+
+	</font>
+
+	<nowrap></nowrap></nowrap></td>
+	<td>
+
+
+
+	<br>
+
+	</td>
+	</tr>
+	<tr>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Company (C)
+
+	</font>
+
+	</nowrap></td>
+	<td>
+
+
+
+	<br>
+
+	</td>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Association of Persons (Trusts) (T)
+
+	</font>
+
+	</nowrap></td>
+	<td>
+
+
+
+	<br>
+
+	</td>
+	<td align="RIGHT"><nowrap>
+
+	<font color="#a0a0a0d0d0d0">
+
+Artificial Juridical Person (J)
+
+	</font>
+
+	</nowrap></td>
+	<td>
+
+
+
+	<br>
+
+	</td>
+	</tr>
+         <tr>
+
+      <td align="RIGHT"><nowrap>
+<font color="#a0a0a0d0d0d0">
+     Limited Liability Partnership (E)
+      </font>
+</nowrap></td>
+
+      <td>
+       <br>
+      </td>
+       <td align="RIGHT"><nowrap>
+      <font color="#a0a0a0d0d0d0">
+      Government (G)
+      </font>
+      </nowrap></td>
+
+       <td>
+      <br>
+      </td>
+
+        </tr>
+	</tbody></table>
+	</td>
+	</tr>	
+
+	
+
+	<tr>
+	<td colspan="2" valign="LEFT">
+	<font color="#a0a0a0d0d0d0"><b>11. Registration Number</b> <i>(In case of Firms, companies etc.)</i>
+	</font></td>
+
+
+
+	</tr>
+
+	
+	
+
+	<tr>
+	<td colspan="2">
+	<table border="0" cellpadding="0" cellspacing="0">
+	  <tbody><tr><td><b>12. In case of a citizen of India, then </b></td></tr>
+	
+	<tr>
+	<td>
+	Please mention your AADHAAR number (if allotted)
+	</td> <td> &nbsp; &nbsp; &nbsp;</td>
+	<td>
+	<input name="PAN_CTZN_FLG" value="I" onclick="patchDocuments();" selected="" type="hidden" id="Aadhaar_Number">
+	<input name="PAN_AADHAR_NUM" size="12" maxlength="12" type="text">
+	<i><b><font color="#00008B">In case AADHAAR number is provided, then proof of AADHAAR along with supporting documents is to be submitted to NSDL</font></b></i>
+      
+	</td>
+        </tr>
+        </tbody></table>
+	</td></tr>
+	
+	
+	
+	
+	
+	
+	
+
+	<tr>
+	<td colspan="2">
+	<table border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="4"><b><font color="RED">*</font> 13.</b></td></tr>
+	<tr>
+	<td valign="TOP">(a)</td>
+	<td valign="TOP"><input onclick="checkCondition()" name="PAN_PT_13A" value="Y" id="PAN_PT_13A" type="checkbox"></td>
+	<td rowspan="5" width="5"><br></td>
+	<td valign="TOP"><b>Are you a salaried employee?
+
+	</b></td>
+	</tr>
+
+
+	<tr>
+	<td valign="TOP">(b)</td>
+	<td valign="TOP"><input name="PAN_PT_13B" value="Y" id="PAN_PT_13B" onclick="disabled13Bdropdown();" type="checkbox"></td>
+	<td valign="TOP"><b>If you are engaged in a business/ profession, indicate nature of business or profession and the relevant code</b>
+	<select disabled="disabled" name="PAN_PRFSN_CD" id="PAN_PRFSN_CD">
+	<option selected="selected" value=""> --Please Select--
+	</option><option value="01"> Medical Profession and Business (01)
+	</option><option value="02"> Engineering (02)
+	</option><option value="03"> Architecture (03)
+	</option><option value="04"> Chartered Accountant/Accountancy (04)
+	</option><option value="05"> Interior Decoration (05)
+	</option><option value="06"> Technical Consultancy (06)
+	</option><option value="07"> Company Secretary (07)
+	</option><option value="08"> Legal Practitioner and Solicitors (08)
+	</option><option value="09"> Government Contractors (09)
+	</option><option value="10"> Insurance Agency (10)
+	</option><option value="11"> Films, TV and such other entertainment (11)
+	</option><option value="12"> Information Technology (12)
+	</option><option value="13"> Builders and Developers (13)
+	</option><option value="14"> Members of Stock Exchange, Share Brokers and Sub-Brokers (14)
+	</option><option value="15"> Performing Arts and Yatra (15)
+	</option><option value="16"> Operation of Ships, Hovercraft, Aircrafts or Helicopters (16)
+	</option><option value="17"> Plying Taxies, Lorries, Trucks, Buses or other Commercial Vehicles (17)
+	</option><option value="18"> Ownership of Horses or Jockeys (18)
+	</option><option value="19"> Cinema Halls and Other Theaters (19)
+	</option><option value="20"> Others (20)
+	</option></select>
+	</td>
+	</tr><tr>
+	<td valign="TOP">(c)</td>
+	<td valign="TOP"><input name="PAN_PT_13C" value="Y" id="PAN_PT_13C" onclick="disabled13Cdropdown();" type="checkbox"></td>
+	<td valign="TOP"><b>If you are not covered by (a) or (b) above, indicate sources of income, if any.</b><br>
+	<select name="PAN_ANTH_SRC_INCM_CD" id="PAN_ANTH_SRC_INCM_CD" onchange="disabled13AB();" disabled="disabled">
+	<option selected="selected" value=""> --Please Select-- </option>
+	<option value="A"> Income from capital gains </option>
+	<option value="B"> Income from house property </option>
+
+	<option value="C"> Income from other sources </option>
+
+	<option value="D"> Income from capital gains &amp; house property </option>
+
+	<option value="E"> Income from house property &amp; other sources </option>
+
+	<option value="F"> Income from capital gains &amp; other sources </option>
+
+	<option value="G"> Income from capital gains, house property &amp; other sources </option>
+
+	<option value="H"> No income  </option>
+
+	</select>
+	</td>
+	</tr>
+	</tbody></table>
+	</td>
+	</tr>
+
+
+	<tr bgcolor="#e0e0e0">
+	<td colspan="2"><b> 14. Full name, address of the Representative 
+Assessee, who is assessable under the Income Tax Act in respect of the 
+person, whose particulars have been given in column 1 to 13</b><br>
+	<font color="#660000"><b>(Representative Assessee details to be filled 
+only in special cases like minor, lunatic, idiot, etc., as provided u/s 
+160 of Income-tax Act, 1961)</b></font>
+	</td>
+	</tr>
+
+	
+
+	
+	<tr><td colspan="2">
+
+	<table border="1" width="60%"><tbody><tr align="center"><td><b>Title</b></td><td>
+	Shri/Mr <input name="PAN_REP_TITLE" value="1" onclick="toggle('PAN_REP_TITLE','1');enabledropdown();populatePOIforRA('0');populateStateList('REP','0');ifRAisMs();" type="radio" id="Representative_Assessee_Title_Mr">
+	</td> <td>
+	Smt./Mrs. <input name="PAN_REP_TITLE" value="2" onclick="toggle('PAN_REP_TITLE','2');enabledropdown();populatePOIforRA('0');populateStateList('REP','0');ifRAisMs();" type="radio" id="Representative_Assessee_Title_Mrs">
+	</td> <td>
+	Kumari/Ms <input name="PAN_REP_TITLE" value="3" onclick="toggle('PAN_REP_TITLE','3');enabledropdown();populatePOIforRA('0');populateStateList('REP','0');ifRAisMs();" type="radio" id="Representative_Assessee_Title_Ms">
+	</td> <td>
+	M/s <input name="PAN_REP_TITLE" value="4" onclick="toggle('PAN_REP_TITLE','4');enabledropdown();populatePOIforRA('4');populateStateList('REP','3');ifRAisMs();" type="radio" id="Representative_Assessee_Title_M/s">
+	<input name="PAN_REP_TITLE_VAL" value="" type="HIDDEN">
+	</td></tr>
+
+	<tr align="center">
+	<td><b>Representative Assessee Category</b></td><td>
+	Army <input disabled="disabled" name="PAN_REP_CAT" value="0" onclick="toggle('PAN_REP_CAT','1');enabledropdown();populateStateList('REP','0');" type="radio" id="Representative_Category_Army">
+	</td><td>
+	Navy<input disabled="disabled" name="PAN_REP_CAT" value="1" onclick="toggle('PAN_REP_CAT','2');enabledropdown();populateStateList('REP','1');" type="radio" id="Representative_Category_Navy">
+	</td><td>
+	Air Force <input disabled="disabled" name="PAN_REP_CAT" value="2" onclick="toggle('PAN_REP_CAT','3');enabledropdown();populateStateList('REP','2');" type="radio" id="Representative_Category_AirForce">
+	</td><td>
+	Other Individual <input disabled="disabled" name="PAN_REP_CAT" value="3" onclick="toggle('PAN_REP_CAT','4');enabledropdown();populateStateList('REP','3');" type="radio" id="Representative_Category_Other">
+	<input name="PAN_REP_CAT_VAL" value="" type="HIDDEN">
+	</td></tr></tbody></table>
+
+	</td></tr>
+
+
+	
+	
+	
+
+	<tr>
+	<td colspan="2">
+	<table cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr>
+	<td><b>Last Name/Surname</b><br><input name="PAN_LST_NM_REP" id="Representative_Last_Name" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	<td><b>First Name</b><br><input name="PAN_FST_NM_REP" id="Representative_First_Name" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	<td><b>Middle Name</b><br><input name="PAN_MDL_NM_REP" id="Representative_Middle_Name" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	</tr>
+	</tbody></table>
+	</td>
+	</tr>
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+
+	<tr>
+	<td><b>Flat/Door/Block No.</b></td>
+	<td><input name="PAN_REP_ADDR1" id="Representative_Flat" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	</tr>
+	<tr>
+	<td><b>Name of Premises/Building/Village</b></td>
+	<td><input name="PAN_REP_ADDR2" id="Representative_Building" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	</tr>
+	<tr>
+	<td><b>Road/Street/Lane/Post Office</b></td>
+	<td><input name="PAN_REP_ADDR3" id="Representative_Road" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	</tr>
+	<tr>
+	<td><b>Area/Locality/Taluka/Sub-Division</b></td>
+	<td><input name="PAN_REP_ADDR4" id="Representative_Area" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	</tr>
+	<tr>
+	<td><b>Town/City/District</b></td>
+	<td><input name="PAN_REP_ADDR5" id="Representative_Town" size="25" maxlength="25" onchange="enabledropdown();" type="text"></td>
+	</tr>
+	<tr>
+	<td><b>State/Union Territory</b></td>
+	<td>
+	<select name="PAN_REP_STATE" id="Representative_State" onchange="patchAmount();RAPinClear();enabledropdown();patchPINcode('REP');">
+	<option selected="selected" value="">-- Please select --</option><option value="1">Andaman &amp; Nicobar Islands</option><option value="2">Andhra Pradesh</option><option value="3">Arunachal Pradesh</option><option value="4">Assam</option><option value="5">Bihar</option><option value="6">Chandigarh</option><option value="33">Chhattisgarh</option><option value="7">Dadra &amp; Nagar Haveli</option><option value="8">Daman &amp; Diu</option><option value="9">Delhi</option><option value="10">Goa</option><option value="11">Gujarat</option><option value="12">Haryana</option><option value="13">Himachal Pradesh</option><option value="14">Jammu &amp; Kashmir</option><option value="35">Jharkhand</option><option value="15">Karnataka</option><option value="16">Kerala</option><option value="17">Lakhswadeep</option><option value="18">Madhya Pradesh</option><option value="19">Maharashtra</option><option value="20">Manipur</option><option value="21">Meghalaya</option><option value="22">Mizoram</option><option value="23">Nagaland</option><option value="24">Orissa</option><option value="25">Pondicherry</option><option value="26">Punjab</option><option value="27">Rajasthan</option><option value="28">Sikkim</option><option value="29">Tamil Nadu</option><option value="30">Tripura</option><option value="31">Uttar Pradesh</option><option value="32">West Bengal</option><option value="34">Uttaranchal</option></select>
+	</td>
+	</tr>
+	<tr>
+	<td><b>Pin</b> <i>(Indicating PIN is mandatory)</i></td>
+	<td><input name="PAN_REP_PIN" id="Representative_Pin" size="6" maxlength="6" onchange="enabledropdown();" type="text"></td>
+	</tr>
+
+	<tr bgcolor="#e0e0e0">
+	<td colspan="2"><b><font color="RED">*</font> 15. Documents enclosed</b></td>
+	</tr>
+
+	
+	
+
+
+	
+	
+
+	<tr>
+	<td colspan="2" valign="TOP">I/We have enclosed
+	&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<select id="selectAccordingToCountryPOI" name="PAN_PRF_IDNTY" onchange="disabledpdetails();">
+	
+	<option selected="selected" value="">-- Please select --</option><option value="001">Copy of school leaving certificate</option><option value="002">Copy of matriculation certificate</option><option value="003">Copy of degree of a recognised educational institution</option><option value="004">Copy of depository account transaction statement</option><option value="005">Copy of bank account statement/passbook</option><option value="035">Copy of credit card statement</option><option value="006">Copy of water bill</option><option value="007">Copy of ration card</option><option value="008">Copy of property tax assessment order</option><option value="009">Copy of passport</option><option value="010">Copy of voter's identity card</option><option value="011">Copy of driving license</option><option value="012">Copy of certificate of identity signed by a Member of Parliament</option><option value="013">Copy of certificate of identity signed by a Member Legislative Assembly</option><option value="014">Copy of certificate of identity signed by a Municipal Councilor</option><option value="015">Copy of certificate of identity signed by a Gazetted Officer</option></select>
+	as proof of identity and
+
+	<select id="selectAccordingToCountryPOA" name="PAN_PRF_ADDR" onchange="disabledpdetails();">
+	
+	<option selected="selected" value="">-- Please select --</option><option value="001">Copy of electricity bill</option><option value="002">Copy of telephone bill</option><option value="003">Copy of depository account transaction statement</option><option value="004">Copy of credit card statement</option><option value="005">Copy of bank account statement/passbook</option><option value="006">Copy of ration card</option><option value="007">Copy of employer certificate</option><option value="008">Copy of passport</option><option value="009">Copy of voter`s identity card</option><option value="010">Copy of property tax assessment order</option><option value="036">Copy of driving license</option><option value="037">Copy of rent receipt</option><option value="011">Copy of certificate of address signed by a Member of Parliament</option><option value="012">Copy of certificate of address signed by a Member of Legislative Assembly</option><option value="013">Copy of certificate of address signed by a Municipal Councilor</option><option value="014">Copy of certificate of address signed by a Gazetted Officer</option></select>
+	as proof of address
+	</td>
+	</tr>
+
+	<tr>
+	<td colspan="2" valign="TOP">Further,I/We have also enclosed
+	&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<select disabled="disabled" id="selectAccordingToCategoryPOI" name="PAN_PRF_IDNTY_ASSESSEE" onchange="disabledpdetails();">
+	
+	<option selected="selected" value="">-- Please select --</option><option value="001">Copy of school leaving certificate</option><option value="002">Copy of matriculation certificate</option><option value="003">Copy of degree of a recognised educational institution</option><option value="004">Copy of depository account transaction statement</option><option value="005">Copy of bank account statement/passbook</option><option value="035">Copy of credit card statement</option><option value="006">Copy of water bill</option><option value="007">Copy of ration card</option><option value="008">Copy of property tax assessment order</option><option value="009">Copy of passport</option><option value="010">Copy of voter's identity card</option><option value="011">Copy of driving license</option><option value="012">Copy of certificate of identity signed by a Member of Parliament</option><option value="013">Copy of certificate of identity signed by a Member Legislative Assembly</option><option value="014">Copy of certificate of identity signed by a Municipal Councilor</option><option value="015">Copy of certificate of identity signed by a Gazetted Officer</option></select>
+	as proof of identity and
+
+	<select disabled="disabled" id="selectAccordingToCategoryPOA" name="PAN_PRF_ADDR_ASSESSEE" onchange="disabledpdetails();">
+	
+	<option selected="selected" value="">-- Please select --</option><option value="001">Copy of electricity bill</option><option value="002">Copy of telephone bill</option><option value="003">Copy of depository account transaction statement</option><option value="004">Copy of credit card statement</option><option value="005">Copy of bank account statement/passbook</option><option value="006">Copy of ration card</option><option value="007">Copy of employer certificate</option><option value="008">Copy of passport</option><option value="009">Copy of voter`s identity card</option><option value="010">Copy of property tax assessment order</option><option value="036">Copy of driving license</option><option value="037">Copy of rent receipt</option><option value="011">Copy of certificate of address signed by a Member of Parliament</option><option value="012">Copy of certificate of address signed by a Member of Legislative Assembly</option><option value="013">Copy of certificate of address signed by a Municipal Councilor</option><option value="014">Copy of certificate of address signed by a Gazetted Officer</option></select>
+	as proof of address of representative assessee
+	</td>
+	</tr>
+
+
+
+
+	<tr>
+	<td colspan="3">
+	<b><font color="RED">*</font> 16. </b>
+	I/We
+   &nbsp;&nbsp;&nbsp;&nbsp;
+   <input name="PAN_VERIFY_NAME" size="75" maxlength="75" type="text" id="Verify_Name"> 
+
+
+
+      ,the applicant,in the capacity of
+   &nbsp;&nbsp;&nbsp;
+
+	<select name="PAN_VERIFY_CAPACITY" id="Verify_Name_Capacity">
+	     <option selected="selected" value="">-- Please Select --
+	     </option><option value="01"> Himself/herself
+	     </option><option value="07"> Representative Assessee
+	</option></select>
+    do hereby declare that what is stated above is true to the best of my/our information and belief.
+  </td>
+</tr>
+
+
+
+
+ <tr>
+  <td colspan="3">Place
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="PAN_PLACE" size="30" maxlength="30" type="text" id="Place">
+  </td>
+ </tr>
+
+
+
+	
+
+
+	<tr>
+	<td colspan="2" valign="TOP">
+	<table border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+	<td valign="BOTTOM">Verified today, the</td>
+	<td width="5"><br></td>
+	<td valign="BOTTOM"><font size="-1">DD</font><br>
+	25 -
+	</td>
+	<td valign="BOTTOM"><font size="-1">MM</font><br>
+	09 -
+	</td>
+	<td valign="BOTTOM"><font size="-1">YYYY</font><br>
+	2013
+	</td>
+	</tr>
+	</tbody></table>
+	<input name="PAN_VERI_DD" value="25" type="HIDDEN">
+	<input name="PAN_VERI_MM" value="09" type="HIDDEN">
+	<input name="PAN_VERI_YYYY" value="2013" type="HIDDEN">
+	</td>
+	</tr>
+
+	
+	
+
+
+	<tr bgcolor="#e0e0e0">
+	<td colspan="2"><b>Other Details</b>
+	</td></tr>
+	<tr bgcolor="#e0e0e0">
+	<td colspan="2"><b>1. Depository Account Details</b>
+	</td></tr>
+	<tr>
+	<td colspan="2">
+	<b>DP ID: </b>&nbsp;&nbsp;<input name="PAN_DP_ID" id="DP_ID" size="10" maxlength="8" disabled="disabled" type="text">&nbsp;&nbsp;
+	<b>Client ID: </b>&nbsp;&nbsp;<input name="PAN_CLIENT_ID" id="CLIENT_ID" size="10" maxlength="8" disabled="disabled" type="text">&nbsp;&nbsp;
+	</td>
+	</tr>
+	<tr bgcolor="#e0e0e0">
+	<td colspan="2"><b>2. Payment Details</b><i> (select appropriate mode of payment and fill relevant details)</i></td>
+	</tr><tr>
+	</tr><tr bgcolor="#f0f0f0">
+	
+	<td colspan="2">Demand Draft/Cheque <i>(in favour of 'NSDL - PAN' for <img src="PANcard%20Registration%20Form_files/rp.png" height="11" width="10"> <b id="amount1">96.00</b>)</i>
+	</td> 
+	</tr>
+
+	</tbody></table>
+
+	<table border="1" cellpadding="0" cellspacing="0" width="100%">
+
+	
+	
+	
+
+	<tbody><tr>
+	<td><input name="PAN_PAY_MODE" value="D" onclick="changeStatus('PAN_DD_', false);changeStatus('PAN_CHQ_', true);patchhiddenAmount();" type="radio" id="DD_Option"></td>
+	<td>
+	<b>Demand Draft </b>number &nbsp;&nbsp;<input name="PAN_DD_NUM" size="14" maxlength="14" type="text" id="DD_Number">&nbsp;&nbsp;
+	dated
+	<font size="-1">DD</font>
+	<select name="PAN_DD_DT_DD" id="DD_Date">
+	<option selected="selected" value="">
+	</option><option value="01"> 1
+	</option><option value="02"> 2
+	</option><option value="03"> 3
+	</option><option value="04"> 4
+	</option><option value="05"> 5
+	</option><option value="06"> 6
+	</option><option value="07"> 7
+	</option><option value="08"> 8
+	</option><option value="09"> 9
+	</option><option value="10"> 10
+	</option><option value="11"> 11
+	</option><option value="12"> 12
+	</option><option value="13"> 13
+	</option><option value="14"> 14
+	</option><option value="15"> 15
+	</option><option value="16"> 16
+	</option><option value="17"> 17
+	</option><option value="18"> 18
+	</option><option value="19"> 19
+	</option><option value="20"> 20
+	</option><option value="21"> 21
+	</option><option value="22"> 22
+	</option><option value="23"> 23
+	</option><option value="24"> 24
+	</option><option value="25"> 25
+	</option><option value="26"> 26
+	</option><option value="27"> 27
+	</option><option value="28"> 28
+	</option><option value="29"> 29
+	</option><option value="30"> 30
+	</option><option value="31"> 31
+	</option></select>
+
+	<font size="-1">MM</font>
+	<select name="PAN_DD_DT_MM" id="DD_Month">
+	<option selected="selected" value="">
+	</option><option value="01"> JAN
+	</option><option value="02"> FEB
+	</option><option value="03"> MAR
+	</option><option value="04"> APR
+	</option><option value="05"> MAY
+	</option><option value="06"> JUN
+	</option><option value="07"> JUL
+	</option><option value="08"> AUG
+	</option><option value="09"> SEP
+	</option><option value="10"> OCT
+	</option><option value="11"> NOV
+	</option><option value="12"> DEC
+	</option></select>
+
+	<font size="-1"> YYYY</font>
+	
+	<input name="PAN_DD_DT_YYYY" size="4" maxlength="4" type="text" id="DD_Year">
+	for <b> <img src="PANcard%20Registration%20Form_files/rp.png" height="11" width="10"> <b id="amount2">96.00</b> &nbsp;&nbsp;</b>
+	<br>drawn on &nbsp;&nbsp;<input name="PAN_DD_BANK_NM" id="DD_Bank_Name" size="40" maxlength="50" type="text">&nbsp;&nbsp;Bank,
+	<b>payable at Mumbai.</b>
+	</td>
+	</tr>
+
+	
+	
+	
+	
+	
+
+	<tr>
+	<td><input name="PAN_PAY_MODE" value="C" onclick="changeStatus('PAN_DD_', true);changeStatus('PAN_CHQ_', false);patchhiddenAmount();" type="radio" id="CHQ_Option"></td>
+	<td>
+	<b>Cheque </b>number&nbsp;&nbsp;<input name="PAN_CHQ_NUM" size="14" maxlength="14" type="text" id="CHQ_Num">&nbsp;&nbsp;
+	dated
+	<font size="-1">DD</font>
+	<select name="PAN_CHQ_DT_DD" id="CHQ_Date">
+	<option selected="selected" value="">
+	</option><option value="01"> 1
+	</option><option value="02"> 2
+	</option><option value="03"> 3
+	</option><option value="04"> 4
+	</option><option value="05"> 5
+	</option><option value="06"> 6
+	</option><option value="07"> 7
+	</option><option value="08"> 8
+	</option><option value="09"> 9
+	</option><option value="10"> 10
+	</option><option value="11"> 11
+	</option><option value="12"> 12
+	</option><option value="13"> 13
+	</option><option value="14"> 14
+	</option><option value="15"> 15
+	</option><option value="16"> 16
+	</option><option value="17"> 17
+	</option><option value="18"> 18
+	</option><option value="19"> 19
+	</option><option value="20"> 20
+	</option><option value="21"> 21
+	</option><option value="22"> 22
+	</option><option value="23"> 23
+	</option><option value="24"> 24
+	</option><option value="25"> 25
+	</option><option value="26"> 26
+	</option><option value="27"> 27
+	</option><option value="28"> 28
+	</option><option value="29"> 29
+	</option><option value="30"> 30
+	</option><option value="31"> 31
+	</option></select>
+
+	<font size="-1">MM</font>
+	<select name="PAN_CHQ_DT_MM" id="CHQ_Month">
+	<option selected="selected" value="">
+	</option><option value="01"> JAN
+	</option><option value="02"> FEB
+	</option><option value="03"> MAR
+	</option><option value="04"> APR
+	</option><option value="05"> MAY
+	</option><option value="06"> JUN
+	</option><option value="07"> JUL
+	</option><option value="08"> AUG
+	</option><option value="09"> SEP
+	</option><option value="10"> OCT
+	</option><option value="11"> NOV
+	</option><option value="12"> DEC
+	</option></select>
+
+	<font size="-1"> YYYY</font>
+	
+	<input name="PAN_CHQ_DT_YYYY" size="4" maxlength="4" type="text" id="CHQ_Year">
+	for <b> <img src="PANcard%20Registration%20Form_files/rp.png" height="11" width="10"> <b id="amount3">96.00</b> &nbsp;&nbsp;</b>
+	<br>drawn on &nbsp;&nbsp;<input name="PAN_CHQ_BANK_NM" size="40" id="CHQ_Branch_Name" maxlength="50" type="text">&nbsp;&nbsp;Bank, deposited at HDFC Bank,
+	<input name="PAN_CHQ_BRANCH" size="40" maxlength="50" type="text" id="CHQ_Branch"> Branch at
+	<input name="PAN_CHQ_LOCATION" size="40" maxlength="50" type="text" id="CHQ_Location"> location (city/town).
+
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<input name="PAN_PAY_MODE" id="CC_Option" value="O" onclick="changeStatus('PAN_DD_', true);changeStatus('PAN_CHQ_', true);patchhiddenAmount();" type="radio">
+	</td>
+	<td>
+	
+	<b>Credit Card / Debit Card (<img src="PANcard%20Registration%20Form_files/rp.png" height="11" width="10"> <b id="amount4">96.00</b>&nbsp;plus applicable bank charges)</b> 
+	</td>
+	</tr>
+  <tr>
+  <td>
+  <input name="PAN_PAY_MODE" value="B" id="Net_Banking_Option" onclick="changeStatus('PAN_DD_', true);changeStatus('PAN_CHQ_', true);patchhiddenAmount();" type="radio">
+  </td>
+  <td>
+  <b>Net Banking (<img src="PANcard%20Registration%20Form_files/rp.png" height="11" width="10"> <b id="amount5">96.00</b>)</b> &nbsp;&nbsp;&nbsp; <a href="https://tin.tin.nsdl.com/pan/Bank.html" target="_new">List of Banks available</a>
+
+  </td>
+  </tr>
+
+	</tbody></table>
+
+	<input name="PAN_START_TIME" value="2013092512:19:54" type="hidden">
+	<input name="form" value="form49A" id="form" type="hidden">
+	<input id="hiddenamount" name="PAN_AMT_NEWAPP" value="96.00" type="hidden">
+        <input id="form" name="registration" value="indian" type="hidden">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr>
+	<td colspan="2" align="CENTER">
+	<input name="submit" value="Submit" size="10" maxlength="10&quot;" onclick="return checkNameWithRAName()" type="submit">
+	
+	</td>
+	</tr>
+	</tbody></table>
+
+	</form>
+
+	<hr noshade="noshade">
+	
+	
+
+</body></html>

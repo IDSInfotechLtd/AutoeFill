@@ -1,0 +1,1900 @@
+<html><head><script language="JavaScript">
+//<!--
+
+var message="Developed and Maintaned \n\tby\n\ NIC, MEA Division, New Delhi";
+
+function clickIE4(){
+if (event.button==2){
+alert(message);
+return false;
+}
+}
+function allotmess(myvar,time)
+{
+alert('After filling this form, you will have to submit the print out of the application along with necessary documents at the respective Indian Mission/Post. The first available appointment for receiving the application at the Indian Mission/Post is on : '+myvar+' : '+time+'');}
+function clickNS4(e){
+if (document.layers||document.getElementById&&!document.all){
+if (e.which==2||e.which==3){
+alert(message);
+return false;
+}
+}
+}
+
+if (document.layers){
+document.captureEvents(Event.MOUSEDOWN);
+document.onmousedown=clickNS4;
+}
+else if (document.all&&!document.getElementById){
+document.onmousedown=clickIE4;
+}
+
+document.oncontextmenu=new Function("alert(message);return false")
+
+
+// --> 
+</script>
+
+
+
+
+
+
+
+
+
+
+<title>Online Passport Registration Form</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<script language="javascript" src="Online%20Passport%20Registration%20Form_files/validate.htm"></script>
+<script language="javascript" src="Online%20Passport%20Registration%20Form_files/date_diff.js"></script>
+<script type="text/javascript" src="Online%20Passport%20Registration%20Form_files/tooltip.js">
+</script>
+
+<script language="javascript">
+
+function isValidAgent(str,str1)	{
+	var tmp = 0.0;
+	var tmp1 = 0.0;
+	if (str.length < 4) { return true;}
+	if (str.substring(0,3).toUpperCase()!= str1){return true;}
+	for (var i = 0; i < 3; i++) {
+		 tmp = str.charCodeAt(i); // get numeric value
+		if(tmp=0 || (tmp >1 && tmp<65) ||  (tmp>90 && tmp<97) || tmp>122) {return true;}
+	} 
+	for(i=3;i<7;i++)   //check for digits
+	{ tmp1 = str.charCodeAt(i);
+		//if(str[i]>='0'&&str[i]<='9' ) {return true; }
+		if ((tmp1 >0 && tmp1<48) || tmp1>57) {return true;}
+    }
+}
+
+function isEmpty(str)
+{
+	if(str=="")
+	return true;
+}
+
+function fullname1(str)
+{   var temp=new Array();
+ 	temp=str.split(' ');
+	//document.write(temp[0]);
+	 var firstname=temp[0];
+	 var middlename=temp[1];
+	// document.write(temp[1]);
+	 var k=firstname.length;
+	 if(middlename!=null)
+	{
+	 
+if(firstname=='MR' || firstname=='MRS' || firstname=='SMT'|| firstname=='DR'|| firstname=='MISS' || firstname=='mr' || firstname=='mrs' || firstname=='smt'|| firstname=='dr'|| firstname=='miss' || firstname=='ms' || firstname=='MS'){	
+	return true;
+	}}
+}
+
+function fullname(str)
+{   var temp=new Array();
+ 	temp=str.split(' ');
+	//document.write(temp[0]);
+	 var firstname=temp[0];
+	 var middlename=temp[1];
+	// document.write(temp[1]);
+	 var k=firstname.length;
+	 if(middlename!=null)
+	{
+	 if(firstname.length==1 || middlename.length==1) 
+	{
+	return true;
+	}
+}
+}
+
+function isNumeric(str)      //for non-numeric fields
+{
+	var FlagS=0, FlagN=0;
+	var str1=new Array();	
+
+	for(var i=0;i<str.length;i++) //convert string to a char array
+	{
+		str1[i]=str.charAt(i);
+	}	
+
+	for(i=0;i<str1.length;i++)   //check for digits
+	{
+		if(str1[i]>='0'&&str1[i]<='9' ) {
+			FlagN=1;
+		}
+	}
+	if(FlagS==1||FlagN==1) { //give a final decision
+		FlagS=FlagN=0;
+		return true;
+	}	
+}
+
+function isValid(str)	{
+	var tmp = 0.0;
+	for (var i = 0; i < str.length; i++) {
+		 tmp = str.charCodeAt(i); // get numeric value
+		if(tmp<32 || (tmp >32 && tmp<65) || (tmp>90 && tmp<97) || tmp>122) {
+			return true;
+		}
+	} 
+}
+
+function isValidStartTime(str)	{
+	
+if(str.length>4)
+	{
+if(((str.charCodeAt(0)==48) || (str.charCodeAt(0)==49))
+&&((str.charCodeAt(1)>47)&&(str.charCodeAt(1) <58 ))
+&&((str.charCodeAt(2)==46))
+&&((str.charCodeAt(3)>47)&&(str.charCodeAt(3)<54)))
+	{
+	return true
+	}
+	}
+	else{
+		
+	return false;}
+
+}
+
+function isValidEndTime(str)	{
+	
+	if(str.length>4)
+	{
+if((str.charCodeAt(0)==49)
+&&((str.charCodeAt(1)>48)&&(str.charCodeAt(1) <57))
+&&(str.charCodeAt(2)==46)
+&&((str.charCodeAt(3)>47)&&(str.charCodeAt(3)<54)))
+	{
+	return true
+	}
+	}
+	else{
+		
+	return false;}
+
+}
+
+
+function isValidUser(str)	{
+	var tmp = 0.0;
+	for (var i = 0; i < str.length; i++) {
+		 tmp = str.charCodeAt(i); // get numeric value
+		if(tmp<32 || (tmp >32 && tmp<48) || (tmp>57 && tmp<65) || (tmp>90 && tmp<97) || tmp>122) {
+			return true;
+		}
+	} 
+}
+
+
+
+function nonNumeric(str)    /*only for numeric fields*/
+{
+	var FlagS=0,FlagN=0;
+	var str1=new Array();
+
+	for(var i=0;i<str.length;i++) /*convert string to a char array*/
+	{
+		str1[i]=str.charAt(i);
+	}
+		
+	
+	for(i=0;i<str1.length;i++)   /*check for non-digits*/
+	{
+		if((str.charAt(i)<'0'||str.charAt(i)>'9') &&(str.charAt(i)!='.') &&(str.charAt(i)!='-')) {
+			
+			FlagN=1;
+		}
+	}
+
+	if(FlagS||FlagN) return true; /*take final decision*/
+}
+
+function nonNumeric1(str)    /*only for numeric fields*/
+{
+	var FlagS=0,FlagN=0;
+	var str1=new Array();
+
+	for(var i=0;i<str.length;i++) /*convert string to a char array*/
+	{
+		str1[i]=str.charAt(i);
+	}
+		
+	
+	for(i=0;i<str1.length;i++)   /*check for non-digits*/
+	{
+		if((str.charAt(i)<'0'||str.charAt(i)>'9') &&(str.charAt(i)!='-') &&(str.charAt(i)!='-')) {
+			
+			FlagN=1;
+		}
+	}
+
+	if(FlagS||FlagN) return true; /*take final decision*/
+}
+function checkmailid()
+		{
+					var Email=EmployeeMaster.EmpEmail.value;
+					var x=Email.indexOf("@");
+					var y=Email.lastIndexOf("@");
+					var a=Email.indexOf(".");
+					var b=Email.lastIndexOf(".");
+
+		if((x!=y)||(x==0)||(x==-1)||(x==(Email.length-1))||(a==0)||(a==-1)||(a==(Email.length-1)))
+		{
+					EmployeeMaster.EmpEmail.focus(); 
+					return false;
+		}
+				else
+				return true;
+
+}	
+
+/*   function DatePosition 
+   parameters: dateString dateType
+   returns: integer (-1, 0, 1)
+   
+   dateString is a date passed as a string in the following
+   formats:
+
+   type 1 : 19970529
+   type 2 : 970529
+   type 3 : 29/05/1997
+   type 4 : 29/05/97
+   type 5 : 05/29/1997
+   type 6 : 05291997
+   type 7 : 052997
+   dateType is a numeric integer from 1 to 7, representing
+   the type of dateString passed, as defined above.
+
+   Returns -1 if the date passed is behind todays date
+   Returns 0 if the date passed is equal to todays date
+   or if dateType is not 1 to 7
+   Returns 1 if the date passed is ahead of todays date
+   
+   Added Y2K checking.  (Works for any century cross over)
+*/
+
+function DatePosition(dateString,dateType) {
+    var now = new Date();
+    var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+    var century = parseInt(now.getYear()/100)*100;
+        
+    if (dateType == 1)
+        var date = new Date(dateString.substring(0,4),
+                            dateString.substring(4,6)-1,
+                            dateString.substring(6,8));
+    else if (dateType == 2)
+    {
+        if ((now.getYear()%100)>=parseInt(dateString.substring(0,2)))
+        {
+            var date = new Date(century+parseInt(dateString.substring(4,6)),
+                            parseInt(dateString.substring(2,4)-1),
+                            dateString.substring(4,6));
+        }
+        else
+        {
+            var date = new Date(century-100+parseInt(dateString.substring(0,2)),
+                            parseInt(dateString.substring(2,4)-1),
+                            dateString.substring(4,6));
+        }
+        
+    }
+    else if (dateType == 3)
+        var date = new Date(dateString.substring(6,10),
+                            dateString.substring(3,5)-1,
+                            dateString.substring(0,2));
+    else if (dateType == 4)
+    {
+        if ((now.getYear()%100)>=parseInt(dateString.substring(6,8)))
+        {
+            var date = new Date(century+parseInt(dateString.substring(4,6)),
+                            parseInt(dateString.substring(3,5)-1),
+                            dateString.substring(0,2));
+        }
+        else
+        {
+            var date = new Date(century-100+parseInt(dateString.substring(4,6)),
+                            parseInt(dateString.substring(3,5)-1),
+                            dateString.substring(0,2));
+        }
+        
+    }
+    else if (dateType == 5)
+			var date = new Date(dateString.substring(6,10),
+			dateString.substring(0,2)-1,dateString.substring(3,5));
+    else if (dateType == 6)
+			var date = new Date(dateString.substring(4,8),
+			dateString.substring(0,2)-1,dateString.substring(2,4));
+    else if (dateType == 7)
+    {
+        if ((now.getYear()%100)>=parseInt(dateString.substring(4,6)))
+        {
+            var date = new Date(century+parseInt(dateString.substring(4,6)),
+            parseInt(dateString.substring(0,2)-1),dateString.substring(2,4));
+        }
+        else
+        {
+            var date = new Date(century-100+parseInt(dateString.substring(4,6)),
+                            parseInt(dateString.substring(0,2)-1),dateString.substring(2,4));
+        }
+        
+    }
+    else
+        return false;
+
+    if (date < today)
+    {
+        return -1;
+    }
+    else if (date > today)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// Converts two-digit year to four-digit year within a sliding
+// "conversion window." Parameter yyyy is an integer.
+function makeFullYear(yyyy) {
+   if (yyyy < 100) {
+      // Minimum range begins this number of years before the current year.
+      var loCutOffset = 70
+      // Today's full year -- requires JavaScript 1.2
+      var curFullYear = (new Date()).getFullYear()
+      // Today's century (first two digits of the year)
+      var curCent = Math.floor(curFullYear/100)
+      // Actual full year of allowable range minimum
+      var loFullYear = curFullYear - loCutOffset
+      // Actual full year of allowable range maximum
+      var topFullYear = curFullYear + (100 - loCutOffset)
+      // Century (first two digits) of minimum
+      var loCent = (Math.floor(loFullYear/100) < curCent) ? Math.floor(loFullYear/100)
+                    : curCent
+      // Two-digit year of minimum
+      var loYear = loFullYear - (loCent * 100)
+      // Century (first two digits) of maximum
+      var topCent = (loCent == curCent) ? curCent + 1 : curCent
+      // Compare two-digit user entry to two-digit range minimum.
+      if (yyyy >= loYear) {
+         // If entry is equal or above minimum, add the entry to the minimum century.
+         yyyy = (loCent*100) + parseInt(yyyy, 10)
+      } else {
+         // If entry is below minimum, add the entry to the maximum century.
+         yyyy = (topCent*100) + parseInt(yyyy,10)
+      }
+   }
+   return yyyy
+} 
+
+/************************************************
+DESCRIPTION: Validates that a string contains only
+    valid dates with 2 digit month, 2 digit day,
+    4 digit year. Date separator can be ., -, or /.
+    Uses combination of regular expressions and
+    string parsing to validate date.
+    Ex. mm/dd/yyyy or mm-dd-yyyy or mm.dd.yyyy
+
+PARAMETERS:
+   strValue - String to be tested for validity
+
+RETURNS:
+   True if valid, otherwise false.
+
+REMARKS:
+   Avoids some of the limitations of the Date.parse()
+   method such as the date separator character.
+*************************************************/
+
+function validateUSDate( strValue ) {
+  var objRegExp = /^\d{1,2}(\-|\/|\.)\d{1,2}\1\d{4}$/
+  //check to see if in correct format
+  if(!objRegExp.test(strValue))
+    return false; //doesn't match pattern, bad date
+  else{
+    var strSeparator = strValue.substring(2,3) //find date separator
+    var arrayDate = strValue.split(strSeparator); //split date into month, day, year
+    //create a lookup for months not equal to Feb.
+    var arrayLookup = { '01' : 31,'03' : 31, '04' : 30,'05' : 31,'06' : 30,'07' : 31,
+                        '08' : 31,'09' : 30,'10' : 31,'11' : 30,'12' : 31}
+    var intDay = (arrayDate[1]);
+
+    //check if month value and day value agree
+    if(arrayLookup[arrayDate[0]] != null) {
+      if(intDay <= arrayLookup[arrayDate[0]] && intDay != 0)
+        return true; //found in lookup table, good date
+    }
+    //check for February
+    var intYear = parseInt(arrayDate[2]);
+    var intMonth = parseInt(arrayDate[0]);
+    if( ((intYear % 4 == 0 && intDay <= 29) || (intYear % 4 != 0 && intDay <=28)) && intDay !=0)
+      return true; //Feb. had valid number of days
+  }
+  return false; //any other values, bad date
+}
+
+
+/************************************************
+DESCRIPTION: Removes characters from a source string
+  based upon matches of the supplied pattern.
+
+PARAMETERS:
+  strValue - source string containing number.
+
+RETURNS: String modified with characters
+  matching search pattern removed
+
+USAGE:  strNoSpaces = removeCharacters( ' sfdf  dfd',
+                                '\s*')
+*************************************************/
+
+function removeCharacters( strValue, strMatchPattern ) {
+ var objRegExp =  new RegExp( strMatchPattern, 'gi' );
+
+ //replace passed pattern matches with blanks
+  return strValue.replace(objRegExp,' ');
+}
+
+function compareDates(value1,value2) {
+   var date1, date2;
+   var month1, month2;
+   var year1, year2;
+
+   month1 = value1.substring (0, value1.indexOf ("-"));
+   date1 = value1.substring (value1.indexOf ("-")+1, value1.lastIndexOf ("-"));
+   year1 = value1.substring (value1.lastIndexOf ("-")+1, value1.length);
+
+   month2 = value2.substring (0, value2.indexOf ("-"));
+   date2 = value2.substring (value2.indexOf ("-")+1, value2.lastIndexOf ("-"));
+   year2 = value2.substring (value2.lastIndexOf ("-")+1, value2.length);
+
+   if (year1 > year2) return 1;
+   else if (year1 < year2) return -1;
+   else if (month1 > month2) return 1;
+   else if (month1 < month2) return -1;
+   else if (date1 > date2) return 1;
+   else if (date1 < date2) return -1;
+   else return 0;
+} 
+  
+ 
+function validDate(theDate) { 
+var re_date = new RegExp("^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$"); 
+var isValid = re_date.test(theDate); 
+if (!isValid) { 
+	alert("Please enter the date in the correct DD-MM-YYYY format."); 
+} 
+
+return isValid; 
+} 
+
+
+</script>
+
+
+<script language="javascript">
+
+
+//checking of data on onkeyup function
+
+function chkdata(ind)
+{
+var checkstr
+var fieldname
+checkstr=document.forms[0].elements[ind].value
+fieldname=document.forms[0].elements[ind].name
+if (ind==3 || ind==4  || ind==6 || ind==9 || ind==10 || ind==12 || ind==13 || ind==15 || ind==16 | ind==27 |ind==28| ind==29 || ind==30 || ind==31 || ind==32 | ind==33 || ind==34 | ind==38 )		
+var checkOK = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+else if (ind==25)												
+var checkOK = " 0123456789.@_-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+else if (ind==14 || ind==23 || ind==24 )									
+var checkOK = "0123456789-";
+else if (ind==48)																		 
+var checkOK = "0123456789- ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+else if (ind==52 || ind==55)															
+var checkOK = " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+else																					
+var checkOK = " 0123456789.-,/#:()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  var allValid = true;
+  var decPoints = 0;
+  var allNum = "";
+  for (i = 0;  i < checkstr.length;  i++)
+  {
+	ch = checkstr.charAt(i);
+    for (j = 0;  j < checkOK.length;  j++)
+      if (ch == checkOK.charAt(j))
+	  { break;}
+	
+    if (j == checkOK.length)
+    {
+      allValid = false;
+      break;
+    }
+    if (ch != ",")
+      allNum += ch;
+  }
+  if (!allValid)
+{
+   document.forms[0].elements[ind].value=allNum
+   document.forms[0].elements[ind].focus()
+ 
+}
+}
+//nsr -->
+
+function isEmpty(str)
+{
+  return((str==null) ||(str.length==0))
+}
+
+function isWhitespace(str)
+{
+  var i=0 ;
+  if(isEmpty(str)) return true;
+  for(i=0;i<str.length;i++)
+   {
+    var currentchar=str.charAt(i);
+	if(whitespace.indexOf(currentchar)==-1) return false;
+   }
+   return true;
+ }
+
+<!--Function is check wheather the value of email address is correct --> 
+
+ function isEmail(e_addrs)
+ {
+var j=1,count=0;
+ var i=1;
+ var e_addlength=e_addrs.length;
+ if(isEmpty(e_addrs))return false;
+ if(isWhitespace(e_addrs)) return false;
+ for(j=1;j<=e_addrs.length;j++)
+ {
+ if(e_addrs.charAt(j)=="@")
+ { 
+ count+=1;
+ }
+ }
+ if(count==0)return false;
+ if(count>1)return false;
+
+<!-- there must be >=1 char before @ in e mail id    -->  
+ while((i<e_addlength)&& (e_addrs.charAt(i)!="@"))
+ {
+  i++;
+ } 
+if((i>=e_addlength)||(e_addrs.charAt(i)!="@")) {return false;}
+else i+=2;
+
+<!-- look for a period -->
+while((i<e_addlength)&&(e_addrs.charAt(i)!="."))
+{
+ i++;
+}
+
+<!-- there must be at least one character after the period -->
+
+if((i>=e_addlength-1 )||(e_addrs.charAt(i)!=".")) return false;
+
+}
+ 
+ 
+<!--end of emailfunction -->
+
+function showSpouse()
+{
+if(document.OnlineForm.MRTLSTATUS.value==" "||document.OnlineForm.MRTLSTATUS.value=="1"||document.OnlineForm.MRTLSTATUS.value=="3")	{
+document.OnlineForm.SPOUSENAME.disabled=true;
+document.OnlineForm.SPOUSENAME.visibilty=false; 
+document.OnlineForm.SPOUSENAME.value="";
+document.OnlineForm.SPOUSENTL.disabled=true;
+document.OnlineForm.SPOUSENTL.visibilty=false; 
+document.OnlineForm.SPOUSENTL.value="";
+document.forms[0].elements[27].style.backgroundColor="#CCFFFF";
+document.forms[0].elements[28].style.backgroundColor="#CCFFFF";
+
+}
+else{document.OnlineForm.SPOUSENAME.disabled=false;
+     document.OnlineForm.SPOUSENTL.disabled=false;
+document.forms[0].elements[27].style.backgroundColor="white";
+document.forms[0].elements[28].style.backgroundColor="white";
+}}
+
+function CopyAddress()
+{
+	if(document.OnlineForm.copyadd.checked==true) 
+	{
+				document.OnlineForm.PERMADD1.value=document.OnlineForm.PRESADD1.value;
+				document.OnlineForm.PERMADD2.value=document.OnlineForm.PRESADD2.value;
+				document.OnlineForm.PERMADD3.value=document.OnlineForm.PRESADD3.value;
+				
+
+	}
+	else
+	{
+				document.OnlineForm.PERMADD1.value="";
+				document.OnlineForm.PERMADD2.value="";
+				document.OnlineForm.PERMADD3.value="";
+				
+	}
+}
+
+
+
+function change(frmobj)
+{
+	if(document.OnlineForm.CHNAME.checked==true)
+	{
+	document.OnlineForm.PRVNAME.disabled=false;
+	document.OnlineForm.PRVNAME.value="";
+	document.forms[0].elements[9].style.backgroundColor="white";
+}
+else{document.OnlineForm.PRVNAME.disabled=true;
+	document.OnlineForm.PRVNAME.value="";
+	document.forms[0].elements[9].style.backgroundColor="#CCFFFF";
+}}
+
+function pmnt(frmobj)
+{
+	if(document.OnlineForm.pmntmode.checked==true)
+	{
+	document.OnlineForm.pmntmode.value="D";
+	document.OnlineForm.DDNO.disabled=false;
+	document.OnlineForm.DDNO.value="";
+	document.OnlineForm.BANKCODE.disabled=false;
+	document.OnlineForm.BANKCODE.value="";
+	document.OnlineForm.DDDATE.disabled=false;
+	document.OnlineForm.DDDATE.value="";
+}
+else{
+	document.OnlineForm.DDNO.disabled=true;
+
+	document.OnlineForm.BANKCODE.disabled=true;
+	
+	document.OnlineForm.DDDATE.disabled=true;
+	}
+}
+function oldPassport(frmobj)
+{
+	if(document.OnlineForm.oldpassport.checked==true)
+	{	
+     document.OnlineForm.oldpassport.value="O";
+    document.OnlineForm.OLDPPTNO.disabled=false;
+	document.OnlineForm.OLDISSUPLAC.disabled=false;
+	document.OnlineForm.OLDPPTISSUDATE.disabled=false;
+    document.OnlineForm.OLDFILENO.disabled=false;
+	 document.OnlineForm.OLDPPTEXPIRY.disabled=false;
+	
+	}
+else{
+	
+	document.OnlineForm.OLDPPTNO.disabled=true;
+
+	document.OnlineForm.OLDISSUPLAC.disabled=true;
+	
+	document.OnlineForm.OLDPPTISSUDATE.disabled=true;
+	
+	document.OnlineForm.OLDFILENO.disabled=true;
+	 document.OnlineForm.OLDPPTEXPIRY.disabled=true;
+}
+}
+
+ function CHECKADD(frmobj)
+{if(document.OnlineForm.LASTADD.checked==true){      	
+     document.OnlineForm.PRVADD1.disabled=false;
+	 document.OnlineForm.PRVADD11.disabled=false;
+	document.OnlineForm.PRVADD2.disabled=false;
+	document.OnlineForm.PRVADD12.disabled=false;
+	document.OnlineForm.PRVADD3.disabled=false;
+	document.OnlineForm.PRVADD13.disabled=false;
+	document.OnlineForm.select1.disabled=false;
+	document.OnlineForm.select2.disabled=false;
+	document.OnlineForm.select3.disabled=false;
+	document.OnlineForm.select4.disabled=false;
+	document.OnlineForm.select5.disabled=false;
+	document.OnlineForm.select6.disabled=false;
+	document.OnlineForm.select7.disabled=false;
+	document.OnlineForm.select8.disabled=false;
+    document.OnlineForm.PRVADD1.value="";
+	document.OnlineForm.PRVADD11.value="";
+	document.OnlineForm.PRVADD2.value="";
+	document.OnlineForm.PRVADD12.value="";
+	document.OnlineForm.PRVADD3.value="";
+	document.OnlineForm.PRVADD13.value="";
+	
+}
+else{        document.OnlineForm.PRVADD1.disabled=true;
+	 		
+			document.OnlineForm.PRVADD11.disabled=true;
+				document.OnlineForm.PRVADD2.disabled=true;
+				document.OnlineForm.PRVADD12.disabled=true;
+				document.OnlineForm.PRVADD3.disabled=true;
+				document.OnlineForm.PRVADD13.disabled=true;
+				 document.OnlineForm.select1.disabled=true;
+	 			document.OnlineForm.select2.disabled=true;
+				document.OnlineForm.select3.disabled=true;
+				document.OnlineForm.select4.disabled=true;
+				document.OnlineForm.select5.disabled=true;
+				document.OnlineForm.select6.disabled=true;
+				document.OnlineForm.select7.disabled=true;
+				document.OnlineForm.select8.disabled=true;
+				 document.OnlineForm.PRVADD1.value="";
+	 		
+			document.OnlineForm.PRVADD11.value="";
+				document.OnlineForm.PRVADD2.value="";
+				document.OnlineForm.PRVADD12.value="";
+				document.OnlineForm.PRVADD3.value="";
+				document.OnlineForm.PRVADD13.value="";
+}}
+
+
+
+<!-- function for check all validation of this form -->
+function verify(){
+   flag=0;
+       
+	if (isEmpty(document.OnlineForm.PIA.value)){alert("Please Select Indian Mission / Office"); document.OnlineForm.PIA.focus();return false;	}
+	//if (isEmpty(document.OnlineForm.DIST.value)){alert("Please Select District"); document.OnlineForm.DIST.focus();return false;}z
+	if (document.OnlineForm.SERVICE.value=="Select"){alert("Please Select Service "); document.OnlineForm.SERVICE.focus();return false;}
+	if (isValid(document.OnlineForm.SURNAME.value)){alert("Field 'Sur Name' cann't have Invalid Characters"); document.OnlineForm.SURNAME.focus();	return false;}
+	if(!isEmpty(document.OnlineForm.SURNAME.value)){if(fullname1(document.OnlineForm.SURNAME.value)){alert("Please enter Applicant's  Surname without using Abbreviation like DR,MRS,MISS");document.OnlineForm.SURNAME.focus();return false;}}
+	if(!isEmpty(document.OnlineForm.SURNAME.value)){if(fullname(document.OnlineForm.SURNAME.value)){alert("Please enter Applicant's Full Surname");document.OnlineForm.SURNAME.focus();return false;}} 
+	 
+	if (isEmpty(document.OnlineForm.APPLNAME.value)){alert("Please Enter Applname  "); document.OnlineForm.APPLNAME.focus();	return false;}
+	if (isValid(document.OnlineForm.APPLNAME.value)){alert("Field 'Applicant Name' cann't have Invalid  Characters");document.OnlineForm.APPLNAME.focus();	return false;}
+		if(!isEmpty(document.OnlineForm.APPLNAME.value))
+	{
+	if(fullname1(document.OnlineForm.APPLNAME.value))
+		{alert("Please enter Applicant's name without Using Abbreviation like MR,MISS,DR");
+		document.OnlineForm.APPLNAME.focus();
+		return false;
+		}}
+	if(!isEmpty(document.OnlineForm.APPLNAME.value))
+	{
+	if(fullname(document.OnlineForm.APPLNAME.value))
+		{alert("Please enter Applicant's Full name ");
+		document.OnlineForm.APPLNAME.focus();
+		return false;
+		}}
+	if(document.OnlineForm.CHNAME.checked==true) {
+	 if(isEmpty(document.OnlineForm.PRVNAME.value))
+		{alert("Please enter Applicant's Previous Name ");
+		document.OnlineForm.PRVNAME.focus();
+		return false;
+		}
+		}
+
+if (isValid(document.OnlineForm.PRVNAME.value)){alert("Field 'Previous Name' cann't have Invalid Characters"); document.OnlineForm.PRVNAME.focus();	return false;}
+if(!isEmpty(document.OnlineForm.PRVNAME.value)){if(fullname1(document.OnlineForm.PRVNAME.value)){alert("Please enter Applicant's  Previous name without Using Abbreviation like DR,MRS,MISS");document.OnlineForm.PRVNAME.focus();return false;}} 
+if(!isEmpty(document.OnlineForm.PRVNAME.value)){if(fullname(document.OnlineForm.PRVNAME.value)){alert("Please enter Applicant's Full Previous name ");document.OnlineForm.PRVNAME.focus();return false;}} 
+
+if (isEmpty(document.OnlineForm.FTHRNAME.value)){alert("Please Enter Father name "); document.OnlineForm.FTHRNAME.focus();	return false;}
+	if (isValid(document.OnlineForm.FTHRNAME.value)){alert("Field 'Father Name' cann't have Invalid Characters");document.OnlineForm.FTHRNAME.focus();	return false;}
+	if(!isEmpty(document.OnlineForm.FTHRNAME.value)){if(fullname1(document.OnlineForm.FTHRNAME.value)){alert("Please enter Father's  name without Using Abbreviation like DR,MRS,MISS");document.OnlineForm.FTHRNAME.focus();return false;}}
+if(!isEmpty(document.OnlineForm.FTHRNAME.value)){if(fullname(document.OnlineForm.FTHRNAME.value)){alert("Please enter Father's Full name ");document.OnlineForm.FTHRNAME.focus();return false;}}
+
+if (isEmpty(document.OnlineForm.MTHRNAME.value)){alert("Please Enter Mother Name "); document.OnlineForm.MTHRNAME.focus();return false;}
+	if (isValid(document.OnlineForm.MTHRNAME.value)){alert("Field 'Mother Name' cann't have Invalid Characters");document.OnlineForm.MTHRNAME.focus();	return false;}
+	if(!isEmpty(document.OnlineForm.MTHRNAME.value)){if(fullname1(document.OnlineForm.MTHRNAME.value)){alert("Please enter Mother's  name without Using Abbreviation like DR,MRS,MISS");document.OnlineForm.MTHRNAME.focus();return false;}} 
+if(!isEmpty(document.OnlineForm.MTHRNAME.value)){if(fullname(document.OnlineForm.MTHRNAME.value)){alert("Please enter Mother's Full name ");document.OnlineForm.MTHRNAME.focus();return false;}} 
+
+ if (document.OnlineForm.MRTLSTATUS.value=="Select"){alert("Please Select Marital Status "); document.OnlineForm.MRTLSTATUS.focus();	return false;}
+if((document.OnlineForm.MRTLSTATUS.value)=="M"){if(isEmpty(document.OnlineForm.SPOUSENAME.value)){alert("Please Enter the 'Spouse's Name '");	document.OnlineForm.SPOUSENAME.focus();	return false;}}
+if (isValid(document.OnlineForm.SPOUSENAME.value)){alert("Field 'Spouse's Name ' cann't have Invalid Characters"); document.OnlineForm.SPOUSENAME.focus();	return false;}
+if(!isEmpty(document.OnlineForm.SPOUSENAME.value)){if(fullname1(document.OnlineForm.SPOUSENAME.value)){alert("Please enter Spouse's Full name without Using Abbreviation like DR,MISS,MS ");document.OnlineForm.SPOUSENAME.focus();return false;}}
+if(!isEmpty(document.OnlineForm.SPOUSENAME.value)){if(fullname(document.OnlineForm.SPOUSENAME.value)){alert("Please enter Spouse's Full name ");document.OnlineForm.SPOUSENAME.focus();return false;}}
+
+if (isEmpty(document.OnlineForm.APPLDOB.value))	{	
+	alert("Please Enter Applicant Date of birth "); document.OnlineForm.APPLDOB.focus();	return false;}
+    var APPLDOB= document.OnlineForm.APPLDOB.value; 
+	var Apday = APPLDOB.substring(0, 2); 
+	if(Apday.length==1)	{		Apday=0+Apday;	} 
+	var Apmonth = APPLDOB.substring(3, 5); 
+	if(Apmonth.length==1)	{	Apmonth=0+Apmonth;	} 
+	var Apdt=Apmonth+"-"+Apday+"-"+APPLDOB.substring(6); 
+ 
+	if(validateUSDate(Apdt)==false)	{ 
+		alert("Not a Valid Date Of issue"+Apdt); document.OnlineForm.APPLDOB.focus();	return false; 
+	} 
+	var Apedate=Apmonth+"-"+Apday+"-" +APPLDOB.substring(6); 
+	if(compareDates(document.OnlineForm.currentdate.value,Apedate)==-1) 
+		{ 
+			alert("Date of birth Cannot be Greater Than Today  Date"); 
+			document.OnlineForm.APPLDOB.focus();	
+			return false; 
+		} 
+	
+	if (document.OnlineForm.APPLSEX.value=="Select"){alert("Please Select Sex  "); document.OnlineForm.APPLSEX.focus();return false;}
+	if (isEmpty(document.OnlineForm.PLACBRTH.value)){alert("Please Enter Place of Birth");document.OnlineForm.PLACBRTH.focus();return false;	}
+   if (isValid(document.OnlineForm.PLACBRTH.value))	{alert("Place of Birth cann't have Invalid Characters"); document.OnlineForm.PLACBRTH.focus();	return false;}
+   if (isEmpty(document.OnlineForm.BRTHDIST.value)){alert("Please Enter Dist/Country of Birth");document.OnlineForm.BRTHDIST.focus();return false;	}
+if (isValid(document.OnlineForm.BRTHDIST.value)){alert("Field District/ State  ' cann't have Invalid Characters"); document.OnlineForm.BRTHDIST.focus();	return false;}
+	if (isEmpty(document.OnlineForm.IMARK.value)){alert("Please Enter Visible Identification Mark  ");document.OnlineForm.IMARK.focus();return false;	}
+	if (isValid(document.OnlineForm.IMARK.value)){alert("Field Visible Identification Mark ' cann't have Invalid Characters"); document.OnlineForm.IMARK.focus();	return false;}
+if (isValid(document.OnlineForm.PROF.value)){alert("Field Profession' cann't have Invalid Characters"); document.OnlineForm.PROF.focus();return false;}
+	if (isEmpty(document.OnlineForm.PRESADD1.value)){alert("Please Enter Present Address Line 1 "); document.OnlineForm.PRESADD1.focus();return false;	}
+
+if(!isEmpty(document.OnlineForm.PRESADD1.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?"; 
+  for (var i = 0; i < document.OnlineForm.PRESADD1.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRESADD1.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In present Address field");
+	document.OnlineForm.PRESADD1.focus();return false;}}}
+	
+if (isEmpty(document.OnlineForm.PRESADD2.value)){alert("Please Enter Present Address Line 2 "); document.OnlineForm.PRESADD2.focus();	return false;}
+if(!isEmpty(document.OnlineForm.PRESADD2.value)){
+	var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRESADD2.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRESADD2.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In present Address field");
+	document.OnlineForm.PRESADD2.focus();return false;}}}
+
+	
+	if(!isEmpty(document.OnlineForm.PRESADD1.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRESADD3.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRESADD3.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In present Address field");
+	document.OnlineForm.PRESADD3.focus();return false;}}}
+	if (isEmpty(document.OnlineForm.PERMADD1.value))	{	
+		alert("Please Enter Permanent Address Line 1 "); document.OnlineForm.PERMADD1.focus();	return false;
+	}
+	if(!isEmpty(document.OnlineForm.PERMADD1.value)){		
+//var iChars = "!#$%^&*()=[]\\\';{}|\":<>?";
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PERMADD1.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PERMADD1.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Permanent Address field");
+	document.OnlineForm.PERMADD1.focus();return false;}}}
+
+if (isEmpty(document.OnlineForm.PERMADD2.value))	{	
+		alert("Please Enter Permanent Address Line 2 "); document.OnlineForm.PERMADD2.focus();	return false;}
+	if(!isEmpty(document.OnlineForm.PERMADD2.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PERMADD2.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PERMADD2.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Permanent Address field");
+	document.OnlineForm.PERMADD2.focus();return false;}}}
+if(isEmpty(document.OnlineForm.EDUQ.value)){
+	alert("Please Enter Qualification");
+document.OnlineForm.EDUQ.focus();return false;}
+	if(!isEmpty(document.OnlineForm.PERMADD3.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PERMADD3.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PERMADD3.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In present Address field");
+	document.OnlineForm.PERMADD3.focus();return false;}}}
+		if(!isEmpty(document.OnlineForm.EDUQ.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.EDUQ.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.EDUQ.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed Qualification field");
+	document.OnlineForm.EDUQ.focus();return false;}}}
+	if(!isEmpty(document.OnlineForm.PROF.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PROF.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PROF.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed Qualification field");
+	document.OnlineForm.PROF.focus();return false;}}}
+	if (nonNumeric1(document.OnlineForm.PHONENO.value))	{	
+		alert("Please Enter Vaild PHONENO i.e. numeric"); document.OnlineForm.PHONENO.focus();	return false;
+	}
+	if (isEmpty(document.OnlineForm.PHONENO.value))	{	
+			document.OnlineForm.PHONENO.value=0;
+	}
+	if (nonNumeric1(document.OnlineForm.MOBILENO.value))	{	
+		alert("Please Enter Vaild MOBILE NO i.e. numeric"); document.OnlineForm.MOBILENO.focus();	return false;
+	}
+	if (isEmpty(document.OnlineForm.MOBILENO.value))	{	
+			document.OnlineForm.MOBILENO.value=0;
+	}
+ if(!isEmpty(document.OnlineForm.EMAIL.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.EMAIL.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.EMAIL.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In emailid field");
+	document.OnlineForm.EMAIL.focus();return false;}}}
+if (!isEmpty(document.OnlineForm.MOBILENO.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.MOBILENO.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.MOBILENO.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Mobile No field");		document.OnlineForm.MOBILENO.focus();return false;}	}}
+	if (!isEmpty(document.OnlineForm.PHONENO.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.PHONENO.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PHONENO.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Phone No field");		document.OnlineForm.PHONENO.focus();return false;}}}
+	if (isEmpty(document.OnlineForm.HIGHT.value)){	
+		alert("Please Enter Applicant height in cms."); document.OnlineForm.HIGHT.focus();return false;	}
+		if(!isNumeric(document.OnlineForm.HIGHT.value))
+	{alert("Please Enter Numeric Value in Height");document.OnlineForm.HIGHT.focus();return false;}
+
+if (!isEmpty(document.OnlineForm.COLOREYE.value)){	
+	  if (!isEmpty(document.OnlineForm.COLOREYE.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.COLOREYE.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.COLOREYE.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In EYE Color field");
+	document.OnlineForm.COLOREYE.focus();return false;}}}}
+
+if (!isEmpty(document.OnlineForm.COLORHAIR.value)){	
+	  if (!isEmpty(document.OnlineForm.COLORHAIR.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.COLORHAIR.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.COLORHAIR.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Hair Color field");
+	document.OnlineForm.COLORHAIR.focus();return false;}}}}
+ 
+if (!isEmpty(document.OnlineForm.COLORHAIR.value)){	
+	  if (!isEmpty(document.OnlineForm.COLORHAIR.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.COLORHAIR.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.COLORHAIR.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Hair Color field");
+	document.OnlineForm.COLORHAIR.focus();return false;}}}}
+ 
+ if (!isEmpty(document.OnlineForm.SPOUSENTL.value)){	
+	  if (!isEmpty(document.OnlineForm.SPOUSENTL.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.SPOUSENTL.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.SPOUSENTL.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In SPOUSE Nationality field");
+	document.OnlineForm.SPOUSENTL.focus();return false;}}}}
+ 
+if (!isEmpty(document.OnlineForm.FTHRBRTH.value)){	
+	  if (!isEmpty(document.OnlineForm.FTHRBRTH.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.FTHRBRTH.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.FTHRBRTH.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Father birth country field");
+	document.OnlineForm.FTHRBRTH.focus();return false;}}}}
+ 
+if (!isEmpty(document.OnlineForm.MTHRBRTH.value)){	
+	  if (!isEmpty(document.OnlineForm.MTHRBRTH.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.MTHRBRTH.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.MTHRBRTH.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Mother birth country field");
+	document.OnlineForm.MTHRBRTH.focus();return false;}}}}
+ 
+ if (!isEmpty(document.OnlineForm.FTHRNTL.value)){	
+	  if (!isEmpty(document.OnlineForm.FTHRNTL.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.FTHRNTL.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.FTHRNTL.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Father Nationality field");
+	document.OnlineForm.FTHRNTL.focus();return false;}}}}
+
+	if (!isEmpty(document.OnlineForm.MTHRNTL.value)){	
+	  if (!isEmpty(document.OnlineForm.MTHRNTL.value)){		
+var iChars = "!#$%^&*()=[]\\\';,/{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.MTHRNTL.value.length; i++){
+  	if (iChars.indexOf(document.OnlineForm.MTHRNTL.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Mother Nationality  field");
+	document.OnlineForm.MTHRNTL.focus();return false;}}}}
+
+
+
+
+/* if(document.OnlineForm.LASTADD.checked==true){if(document.OnlineForm.select1.value=="select"||document.OnlineForm.select5.value=="select" ||document.OnlineForm.select2.value=="select"||document.OnlineForm.select6.value=="select"){alert ("Please enter last residential address Period");document.OnlineForm.select1.focus();return false;}
+}
+
+if(!(document.OnlineForm.select1.value=="select" ||document.OnlineForm.select5.value=="select"||document.OnlineForm.select2.value=="select"||document.OnlineForm.select6.value=="select"))
+{if(document.OnlineForm.PRVADD1.value==""||document.OnlineForm.PRVADD2.value==""){alert ("Please enter last residential  address1 ");document.OnlineForm.PRVADD1.focus();return false;}}
+
+if(document.OnlineForm.LASTADD.checked==true){ 
+if(!(document.OnlineForm.select3.value=="select")){if(document.OnlineForm.select3.value=="select"||document.OnlineForm.select4.value=="select" ||document.OnlineForm.select7.value=="select"||document.OnlineForm.select8.value=="select"){alert ("Please enter last residential Period");document.OnlineForm.select3.focus();return false;}}}
+if(!(document.OnlineForm.select3.value=="select"||document.OnlineForm.select4.value=="select"||document.OnlineForm.select7.value=="select"||document.OnlineForm.select8.value=="select"))
+{if(document.OnlineForm.PRVADD11.value==""||document.OnlineForm.PRVADD12.value==""){alert ("Please enter last residential  address2 ");document.OnlineForm.PRVADD11.focus();return false;}}
+
+if(document.OnlineForm.LASTADD.checked==true){ 
+if(!(document.OnlineForm.select1.value=="select"||document.OnlineForm.select3.value=="select" ||document.OnlineForm.select5.value=="select" ||document.OnlineForm.select7.value=="select"||document.OnlineForm.select2.value=="select" ||document.OnlineForm.select4.value=="select" ||document.OnlineForm.select6.value=="select"||document.OnlineForm.select8.value=="select")&&(document.OnlineForm.PRVADD1.value==""||document.OnlineForm.PRVADD2.value==""||document.OnlineForm.PRVADD11.value==""||document.OnlineForm.PRVADD12.value=="")){alert ("Please enter last residential address ");document.OnlineForm.PRVADD1.focus();return false;}}
+
+
+
+if(!isEmpty(document.OnlineForm.PRVADD1.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRVADD1.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRVADD1.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Previous Address field");
+	document.OnlineForm.PRVADD1.focus();return false;}}}
+if(!isEmpty(document.OnlineForm.PRVADD11.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRVADD11.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRVADD11.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Previous Address field");
+	document.OnlineForm.PRVADD11.focus();return false;}}}
+if(!isEmpty(document.OnlineForm.PRVADD12.value)){		
+var iChars = "!!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRVADD12.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRVADD12.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Previous Address field");
+	document.OnlineForm.PRVADD12.focus();return false;}}}
+if(!isEmpty(document.OnlineForm.PRVADD13.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRVADD13.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRVADD13.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Previous Address field");
+	document.OnlineForm.PRVADD13.focus();return false;}}}
+if(!isEmpty(document.OnlineForm.PRVADD2.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRVADD2.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRVADD2.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Previous Address field");
+	document.OnlineForm.PRVADD2.focus();return false;}}}
+if(!isEmpty(document.OnlineForm.PRVADD3.value)){		
+var iChars = "!$%^&*=[]\\\';{}|\"<>?";
+  for (var i = 0; i < document.OnlineForm.PRVADD3.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.PRVADD3.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed In Previous Address field");
+	document.OnlineForm.PRVADD3.focus();return false;}}}
+*/
+if (isValid(document.OnlineForm.OLDISSUPLAC.value)){
+		alert("Field Passport Issue Place cann't have Invalid Characters"); document.OnlineForm.OLDISSUPLAC.focus();return false;}
+	
+
+if (!isEmpty(document.OnlineForm.OLDPPTNO.value)){		
+    var iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?";
+  for (var i = 0; i < document.OnlineForm.OLDPPTNO.value.length; i++) {
+  	if (iChars.indexOf(document.OnlineForm.OLDPPTNO.value.charAt(i)) != -1) {
+  	alert ("No Special Characters Allowed in Old Passport No");
+	document.OnlineForm.OLDPPTNO.focus();return false;}
+  }
+
+if (isEmpty(document.OnlineForm.OLDISSUPLAC.value))	{	
+		alert("Please Enter Place of Issue "); document.OnlineForm.OLDISSUPLAC.focus();	return false;
+	}
+
+ if (isEmpty(document.OnlineForm.OLDPPTISSUDATE.value)){	
+	alert("Please Enter  Old Passport Issue Date "); document.OnlineForm.OLDPPTISSUDATE.focus();	return false;
+	}
+      var OLDPPTISSUDATE = document.OnlineForm.OLDPPTISSUDATE.value; 
+	var pday = OLDPPTISSUDATE.substring(0, 2); 
+	if(pday.length==1){pday=0+pday;	} 
+	var pmonth = OLDPPTISSUDATE.substring(3, 5); 
+	if(pmonth.length==1){pmonth=0+pmonth;} 
+	var pdt=pmonth+"-"+pday+"-"+OLDPPTISSUDATE.substring(6); 
+ 
+	if(validateUSDate(pdt)==false){alert("Not a Valid Date Of issue"+pdt); document.OnlineForm.OLDPPTISSUDATE.focus();	return false; } 
+	var pedate=pmonth+"-"+pday+"-" +OLDPPTISSUDATE.substring(6); 
+	if(compareDates(document.OnlineForm.currentdate.value,pedate)==-1) 
+		{ 
+			alert("Date of issue Cannot be Greater Than Today  Date"); 
+			document.OnlineForm.OLDPPTISSUDATE.focus();	
+			return false; 
+		} }
+/* if(document.OnlineForm.pmntmode.checked==true)
+{
+if (isEmpty(document.OnlineForm.DDNO.value)){alert("Please Select Demand Draft No"); document.OnlineForm.DDNO.focus();return false;	}
+if (isEmpty(document.OnlineForm.BANKCODE.value)){alert("Please Select Bank's Name"); document.OnlineForm.BANKCODE.focus();return false;	}
+if (isEmpty(document.OnlineForm.DDDATE.value)){alert("Please Select Demand Draft Date"); document.OnlineForm.DDDATE.focus();return false;	}
+}else{document.OnlineForm.DDNO.value="";
+      document.OnlineForm.DDDATE.value="";
+	  document.OnlineForm.BANKCODE.value="";}
+*/
+if(document.OnlineForm.oldpassport.checked==true)
+{
+if (isEmpty(document.OnlineForm.OLDPPTNO.value)){alert("Please Select Old Passport No"); document.OnlineForm.OLDPPTNO.focus();return false;	}
+if (isEmpty(document.OnlineForm.OLDISSUPLAC.value)){alert("Please Select Old Passport Issue Place"); document.OnlineForm.OLDISSUPLAC.focus();return false;	}
+if (isEmpty(document.OnlineForm.OLDPPTISSUDATE.value)){alert("Please Select Old Passport Issue Date"); document.OnlineForm.OLDPPTISSUDATE.focus();return false;	}
+/* if (isEmpty(document.OnlineForm.OLDFILENO.value)){alert("Please Select Old File No"); document.OnlineForm.OLDFILENO.focus();return false;
+}
+*/
+} else{document.OnlineForm.OLDISSUPLAC.value="";
+      document.OnlineForm.OLDPPTISSUDATE.value="";
+	  document.OnlineForm.OLDFILENO.value="";
+	   document.OnlineForm.OLDPPTNO.value="";}
+
+
+
+ var check_it= confirm("Please verify the details again. Press OK for Save and Cancel for  Re Edit ?");
+if (check_it== true)
+ {return true; }
+else
+ {return false; }
+}
+function checkit()
+{
+  	if (isEmpty(document.OnlineForm.PIA.value))
+	{
+		alert("Please Select Mission/Consulate First"); 
+		document.OnlineForm.PIA.focus();
+	}
+	
+}
+ function gobirth()
+  {document.OnlineForm.APPLDOB.focus();  }
+ function goplace(){document.OnlineForm.PLACBRTH.focus();}
+</script>
+
+<link href="Online%20Passport%20Registration%20Form_files/PIS.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+<!--
+.combo {  background-color: #FFFFE8}
+.checkbox {  background-color: #FFFFE8}
+.style2 {color: #008000}
+.style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #004000;
+	font-size: medium;
+}
+.style5 {color: #008000; font-weight: bold; }
+-->
+</style>
+</head>
+<body>
+<form name="OnlineForm" method="post" action="" onsubmit="return verify(this.form)">
+<input name="currentdate" value="09-18-2013" type="hidden">
+  <table bordercolorlight="#FFFFFF" bordercolordark="#A59EF1" style="border-style:groove " height="891" align="center" bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="1" width="877">
+    <tbody><tr> 
+
+      <td height="3" bgcolor="#A59EF1" width="91%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b><font color="#FFFFFF" face="Arial, Helvetica, sans-serif" size="4">Online 
+        Passport Registration at Indian Missions/Posts for NRIs </font></b></font></td>
+      
+    </tr>
+    <tr> 
+
+      <td height="846" align="left" bgcolor="#FFFFFF" valign="top" width="91%"> 
+        <font size="2">&nbsp; </font> 
+        <table height="1128" align="center" bgcolor="#FFFFFF" border="1" bordercolor="#FFFFFF" cellpadding="0" cellspacing="0" hspace="0" vspace="10" width="838">
+          <tbody><tr bgcolor="#EAE9FC">
+            <td colspan="4" height="34" nowrap="nowrap" valign="middle"><strong><span class="style2">Press&nbsp;</span></strong> <a href="http://www.passport.gov.in/nri/PPT_DupApplForm.jsp"><img src="Online%20Passport%20Registration%20Form_files/cooltext427909552.png" onmouseover="this.src='coolBt/cooltext427909552MouseOver.png';" onmouseout="this.src='coolBt/cooltext427909552.png';" align="middle" border="0"></a> <span class="style5"> &nbsp;to reprint already registered application form.</span></td>
+          </tr>
+          <tr bgcolor="#EAE9FC">
+            <td colspan="4" height="2" nowrap="nowrap"><div class="style3" align="center">New Registration 
+              
+            </div></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td colspan="4" height="2" nowrap="nowrap"><font color="#990000"><b>Note: Columns 
+              marked with <font color="#FF0000">*</font> are compulsory to fill 
+              in. </b></font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="2" bgcolor="#EAE9FC" nowrap="nowrap" width="25%"> 
+              <div align="right"><font color="#1D148B" face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+                Indian Mission<font color="#FF0000">*</font> </font></div></td>
+            <td colspan="3" height="2" bgcolor="#EAE9FC" valign="top"><b><font color="#1D148B" size="2"> 
+              <select name="PIA" class="combo" id="Indian_Mission" tabindex="1">
+                <option selected="selected" value="">Select Office</option>
+                ABWA-
+                <option value="ABWA">ARUBA-ARUBA</option>
+                AFGH-
+                <option value="AFGH">AFGANISTAN-HERAT</option>
+                AFGJ-
+                <option value="AFGJ">AFGANISTAN-JALALABAD</option>
+                AFGK-
+                <option value="AFGK">AFGANISTAN-KABUL</option>
+                AFGM-
+                <option value="AFGM">AFGANISTAN-MAZAR-E-SHARIEF</option>
+                AFGR-
+                <option value="AFGR">AFGANISTAN-KANDHAR</option>
+                AGOL-
+                <option value="AGOL">ANGOLA-LUANDA</option>
+                ANTN-
+                <option value="ANTN">NETHERLANAD ANTILLES-NETHERLANAD ANTILLES</option>
+                ARGA-
+                <option value="ARGA">ARGENTINA-BUENOS AIRES</option>
+                ARMY-
+                <option value="ARMY">ARMENIA-YEREVAN</option>
+                ATGA-
+                <option value="ATGA">ANTIQUA AND BARBUDA-ANTIQUA AND BARBUDA</option>
+                AUSC-
+                <option value="AUSC">AUSTRALIA-CANBERRA</option>
+                AUSM-
+                <option value="AUSM">AUSTRALIA-MELBOURNE</option>
+                AUSP-
+                <option value="AUSP">AUSTRALIA-PERTH</option>
+                AUSS-
+                <option value="AUSS">AUSTRALIA-SYDNEY</option>
+                AUTV-
+                <option value="AUTV">AUSTRIA-VIENNA</option>
+                AZEB-
+                <option value="AZEB">AZERBEIJAN-BAKU</option>
+                BELB-
+                <option value="BELB">BELGIUM-BRUSSELS</option>
+                BENB-
+                <option value="BENB">BENIN-BENIN</option>
+                BFAB-
+                <option value="BFAB">BURKINOFASO-BURKINOFASO</option>
+                BGDC-
+                <option value="BGDC">BANGLADESH-CHITTAGONG</option>
+                BGDD-
+                <option value="BGDD">BANGLADESH-DHAKA</option>
+                BGDR-
+                <option value="BGDR">BANGLADESH-RAJSHAHI</option>
+                BGRS-
+                <option value="BGRS">BULGARIA-SOFIA</option>
+                BLRM-
+                <option value="BLRM">BELARUS-MINSK</option>
+                BOLB-
+                <option value="BOLB">BOLIVIA-BOLIVIA</option>
+                BONB-
+                <option value="BONB">BONAIRE-BONAIRE</option>
+                BRAB-
+                <option value="BRAB">BRAZIL-BRASILIA</option>
+                BRAS-
+                <option value="BRAS">BRAZIL-SAO PAULO</option>
+                BRND-
+                <option value="BRND">BRUNEI-DARUSSALAM</option>
+                BTNP-
+                <option value="BTNP">BHUTAN-PHUNTSHOLING</option>
+                BTNT-
+                <option value="BTNT">BHUTAN-THIMPU</option>
+                BWAG-
+                <option value="BWAG">BOTSWANA-GABORONE</option>
+                CANO-
+                <option value="CANO">CANADA-OTTAWA</option>
+                CANT-
+                <option value="CANT">CANADA-TORONTO</option>
+                CANV-
+                <option value="CANV">CANADA-VANCOUVER</option>
+                CHLS-
+                <option value="CHLS">CHILE-SANTIAGO</option>
+                CHNB-
+                <option value="CHNB">CHINA-BEIJING</option>
+                CHNG-
+                <option value="CHNG">CHINA - GUANGZHOU </option>
+                CHNH-
+                <option value="CHNH">CHINA-HONG KONG</option>
+                CHNS-
+                <option value="CHNS">CHINA-SHANGHAI</option>
+                COLB-
+                <option value="COLB">COLOMBIA-BOGOTA</option>
+                COMC-
+                <option value="COMC">UNION OF COMOROS-UNION OF COMOROS</option>
+                CRCC-
+                <option value="CRCC">CURACAO-CURACAO</option>
+                CUBH-
+                <option value="CUBH">CUBA-HAVANA</option>
+                CYPN-
+                <option value="CYPN">CYPRUS-NICOSIA</option>
+                CYPR-
+                <option value="CYPR">REPUBLIC OF CYPRUS-REPUBLIC OF CYPRUS</option>
+                CYRC-
+                <option value="CYRC">CYRIA-CYRIA</option>
+                CZCP-
+                <option value="CZCP">CZECH-PRAGUE</option>
+                DAKD-
+                <option value="DAKD">DAKAR-DAKAR</option>
+                DEUB-
+                <option value="DEUB">GERMANY-BONN</option>
+                DEUE-
+                <option value="DEUE">GERMANY-BERLIN</option>
+                DEUF-
+                <option value="DEUF">GERMANY-FRANKFURT</option>
+                DEUH-
+                <option value="DEUH">GERMANY-HAMBURG</option>
+                DEUM-
+                <option value="DEUM">GERMANY-MUNICH</option>
+                DNKC-
+                <option value="DNKC">DENMARK-COPENHAGEN</option>
+                DZAA-
+                <option value="DZAA">ALGERIA-ALGIERS</option>
+                ECUE-
+                <option value="ECUE">ECUADOR-ECUADOR</option>
+                EGYC-
+                <option value="EGYC">EGYPT-CAIRO</option>
+                EGYP-
+                <option value="EGYP">EGYPT-PORT SAID</option>
+                ESPM-
+                <option value="ESPM">SPAIN-MADRID</option>
+                ETHA-
+                <option value="ETHA">ETHIOPIA-ADDIS ABABA</option>
+                FIJS-
+                <option value="FIJS">FIJI-SUVA</option>
+                FINH-
+                <option value="FINH">FINLAND-HELSINKI</option>
+                FRAP-
+                <option value="FRAP">FRANCE-PARIS</option>
+                GBRE-
+                <option value="GBRE">UK-EDINBURG</option>
+                GBRL-
+                <option value="GBRL">UK-LONDON</option>
+                GEOG-
+                <option value="GEOG">GEORGIA-GEORGIA</option>
+                GHAA-
+                <option value="GHAA">GHANA-ACCRA</option>
+                GRCA-
+                <option value="GRCA">GREECE-ATHENS</option>
+                GTMG-
+                <option value="GTMG">GUATEMALA CITY</option>
+                GUYG-
+                <option value="GUYG">GUYANA-GEORGETOWN</option>
+                HNGB-
+                <option value="HNGB">HUNGARY-BUDAPEST</option>
+                HRVZ-
+                <option value="HRVZ">CROATIA-ZAGREB</option>
+                IDNB-
+                <option value="IDNB">INDONESIA-BALI</option>
+                IDNJ-
+                <option value="IDNJ">INDONESIA-JAKARTA</option>
+                IDNM-
+                <option value="IDNM">INDONESIA-MEDAN</option>
+                IRAB-
+                <option value="IRAB">IRAN-BAMDAR ABBAS</option>
+                IRAS-
+                <option value="IRAS">IRAN-SHIRAZ</option>
+                IRAT-
+                <option value="IRAT">IRAN-TEHRAN</option>
+                IRAZ-
+                <option value="IRAZ">IRAN-ZAHIDAN</option>
+                IRLD-
+                <option value="IRLD">IRELAND-DUBLIN</option>
+                IRQB-
+                <option value="IRQB">IRAQ-BAGHDAD</option>
+                ISRT-
+                <option value="ISRT">ISRAEL-TEL AVIV</option>
+                ITAM-
+                <option value="ITAM">ITALY-MILAN</option>
+                ITAR-
+                <option value="ITAR">ITALY-ROME</option>
+                JAMK-
+                <option value="JAMK">JAMAIKA-KINGSTON</option>
+                JORA-
+                <option value="JORA">JORDAN-AMMAN</option>
+                JPNO-
+                <option value="JPNO">JAPAN-KOBE</option>
+                JPNT-
+                <option value="JPNT">JAPAN-TOKYO</option>
+                KAZA-
+                <option value="KAZA">KAZAKSTAN-ALMATY</option>
+                KAZT-
+                <option value="KAZT">KAZAKSTAN-ASTANA</option>
+                KENM-
+                <option value="KENM">KENYA-MOMBASA</option>
+                KENN-
+                <option value="KENN">KENYA-NAIROBI</option>
+                KGZB-
+                <option value="KGZB">KYRGYSTAN-BISHKEK</option>
+                KHMP-
+                <option value="KHMP">CAMBODIA-PHNOM PENH</option>
+                KNAS-
+                <option value="KNAS">ST KITTS AND NEVIS-ST KITTS AND NEVIS</option>
+                KWTK-
+                <option value="KWTK">KUWAIT-KUWAIT</option>
+                LAOV-
+                <option value="LAOV">LAOS-VIENTIENE</option>
+                LBNB-
+                <option value="LBNB">LEBANON-BEIRUT</option>
+                LBRL-
+                <option value="LBRL">LIBERIA-LIBERIA</option>
+                LBYT-
+                <option value="LBYT">LIBYA-TRIPOLI</option>
+                LKAA-
+                <option value="LKAA">LKAJ</option>
+                LKAC-
+                <option value="LKAC">SRI LANKA-COLOMBO</option>
+                LKAH-
+                <option value="LKAH">SRI LANKA-HAMBANTOTA</option>
+                LKAJ-
+                <option value="LKAJ">SRI LANKA-JAFFANA</option>
+                LKAK-
+                <option value="LKAK">SRI LANKA-KANDY</option>
+                LTUL-
+                <option value="LTUL">LITHUANIA-LITHUANIA</option>
+                MDGM-
+                <option value="MDGM">MADAGASCAR-ANTANANARIVO</option>
+                MDVM-
+                <option value="MDVM">MALDIVES-MALE</option>
+                MEXM-
+                <option value="MEXM">MEXICO-MEXICO CITY</option>
+                MKDM-
+                <option value="MKDM">ARUBA-MACEDONIA</option>
+                MLTM-
+                <option value="MLTM">MALTA-MALTA</option>
+                MMRM-
+                <option value="MMRM">MYANMAR-MANDALAY</option>
+                MMRY-
+                <option value="MMRY">MYANMAR-YANGON</option>
+                MNGU-
+                <option value="MNGU">MONGOLIA-ULAAN BAATAR</option>
+                MORR-
+                <option value="MORR">MOROCCO-RABAT</option>
+                MOZM-
+                <option value="MOZM">MOZAMBIQUE-MAPUTO</option>
+                MUSP-
+                <option value="MUSP">MAURITIUS-PORT LOUIS</option>
+                MWIL-
+                <option value="MWIL">MALAWI-LILONGWE</option>
+                MYSK-
+                <option value="MYSK">MALAYSIA-KUALA LUMPUR</option>
+                NAMW-
+                <option value="NAMW">NAMIBIA-WINDHOEK</option>
+                NARN-
+                <option value="NARN">NIGER-NIGER</option>
+                NGAA-
+                <option value="NGAA">NIGERIA-ABUJA</option>
+                NGAL-
+                <option value="NGAL">NIGERIA-LAGOS</option>
+                NIAA-
+                <option value="NIAA">IVORY COAST-ABIDJAN</option>
+                NIBB-
+                <option value="NIBB">DAR-US-SALAM-BRUNEI</option>
+                NIGG-
+                <option value="NIGG">PALESTINE-GAZA</option>
+                NLDT-
+                <option value="NLDT">NETHERLANDS-THE HAGUE</option>
+                NORO-
+                <option value="NORO">NORWAY-OSLO</option>
+                NPLB-
+                <option value="NPLB">NEPAL-BIRGANJ</option>
+                NPLK-
+                <option value="NPLK">NEPAL-KATHMANDU</option>
+                NZLW-
+                <option value="NZLW">NEW ZEALAND-WELLINGTON</option>
+                OMNM-
+                <option value="OMNM">OMAN-MUSCAT</option>
+                PAKI-
+                <option value="PAKI">PAKISTAN-ISLAMABAD</option>
+                PAKK-
+                <option value="PAKK">PAKISTAN-KARACHI</option>
+                PANP-
+                <option value="PANP">PANAMA-PANAMA CITY</option>
+                PERL-
+                <option value="PERL">PERU-LIMA</option>
+                PHLM-
+                <option value="PHLM">PHILLIPINES-MANILA</option>
+                PNGP-
+                <option value="PNGP">PAPUA NEW GUINEA-PORT MORESBY</option>
+                POLW-
+                <option value="POLW">POLAND-WARSAW</option>
+                PRKP-
+                <option value="PRKP">KOREA (NORTH)-PYONG YANG</option>
+                PRKS-
+                <option value="PRKS">KOREA (SOUTH)-SEOUL</option>
+                PRTL-
+                <option value="PRTL">PORTUGAL-LISBON</option>
+                REUD-
+                <option value="REUD">REUNION ISLAND-ST. DENIS</option>
+                ROUB-
+                <option value="ROUB">ROMANIA-BUCHAREST</option>
+                RUSM-
+                <option value="RUSM">RUSSIA-MOSCOW</option>
+                RUSP-
+                <option value="RUSP">RUSSIA-ST. PETERSBERG</option>
+                RUSV-
+                <option value="RUSV">RUSSIA-VLADIVOSTOK</option>
+                RWAW-
+                <option value="RWAW">RWANDA-RWANDA</option>
+                SDNK-
+                <option value="SDNK">SUDAN-KHARTOUM</option>
+                SGPS-
+                <option value="SGPS">SINGAPORE-SINGAPORE</option>
+                SNGD-
+                <option value="SNGD">SENEGAL-DAKAR</option>
+                SURP-
+                <option value="SURP">SURINAM-PARAMARIBO</option>
+                SVKB-
+                <option value="SVKB">SLOVAKIA-BRATISLAVA</option>
+                SVNL-
+                <option value="SVNL">SLOVENIA-LJUBLJANA</option>
+                SWES-
+                <option value="SWES">SWEDEN-STOCKHOLM</option>
+                SWZB-
+                <option value="SWZB">SWITZERLAND-BERNE</option>
+                SWZG-
+                <option value="SWZG">SWITZERLAND-GENEVA</option>
+                SYCM-
+                <option value="SYCM">SEYCHELES-MAHE</option>
+                SYRD-
+                <option value="SYRD">SYRIA-DAMASCUS</option>
+                TCDC-
+                <option value="TCDC">CHAD-CHAD</option>
+                TGOT-
+                <option value="TGOT">TOGO-TOGO</option>
+                THAB-
+                <option value="THAB">THAILAND-BANGKOK</option>
+                THAC-
+                <option value="THAC">THAILAND-CHIANG MAI</option>
+                TJKD-
+                <option value="TJKD">TAJIKISTAN-DUSHANBE</option>
+                TKMA-
+                <option value="TKMA">TURKMENISTAN-ASHGABAD</option>
+                TTOP-
+                <option value="TTOP">TRINIDAD &amp; TOBAGO-PORT OF SPAIN</option>
+                TUNT-
+                <option value="TUNT">TUNISIA-TUNIS</option>
+                TURA-
+                <option value="TURA">TURKEY-ANKARA</option>
+                TURI-
+                <option value="TURI">TURKEY-ISTANBUL</option>
+                TZAD-
+                <option value="TZAD">TANZANIA-DAR-ES-SALAAM</option>
+                TZAZ-
+                <option value="TZAZ">TANZANIA-ZANZIBAR</option>
+                UAEA-
+                <option value="UAEA">UAE-ABU DHABI</option>
+                UAED-
+                <option value="UAED">UAE-DUBAI</option>
+                UGAK-
+                <option value="UGAK">UGANDA-KAMPALA</option>
+                UKRK-
+                <option value="UKRK">UKRAINE-KYIV</option>
+                USAA-
+                <option value="USAA">USA-ATLANTA</option>
+                USAC-
+                <option value="USAC">USA-CHICAGO</option>
+                USAH-
+                <option value="USAH">USA-HOUSTON</option>
+                USAN-
+                <option value="USAN">USA-NEW YORK CGI</option>
+                USAS-
+                <option value="USAS">USA-SAN FRANCISCO</option>
+                USAW-
+                <option value="USAW">USA-WASHINGTON</option>
+                UZBT-
+                <option value="UZBT">UZBEKISTAN-TASHKENT</option>
+                VENC-
+                <option value="VENC">VENEZUELA-CARACAS</option>
+                VENV-
+                <option value="VENV">VENEZULA-VENEZULA</option>
+                VNMH-
+                <option value="VNMH">VIETNAM-HANOI</option>
+                VNMO-
+                <option value="VNMO">VIETNAM-HO-CHI-MINH CITY</option>
+                YEMS-
+                <option value="YEMS">YEMEN-SANA A</option>
+                YERY-
+                <option value="YERY">YEREVAN-YEREVAN</option>
+                YUGB-
+                <option value="YUGB">SERBIA AND MONTEGRO-BELGRADE</option>
+                ZAFC-
+                <option value="ZAFC">SOUTH AFRICA-CAPE TOWN</option>
+                ZAFD-
+                <option value="ZAFD">SOUTH AFRICA-DURBAN</option>
+                ZAFJ-
+                <option value="ZAFJ">SOUTH AFRICA-JOHANNESBURG</option>
+                ZAFP-
+                <option value="ZAFP">SOUTH AFRICA-PRETORIA</option>
+                ZARZ-
+                <option value="ZARZ">ZAIRE-KINSHASA</option>
+                ZMBL-
+                <option value="ZMBL">ZAMBIA-LUSAKA</option>
+                ZWEH-
+                <option value="ZWEH">ZIMBABWE-HARARE</option>
+                
+              </select>
+              </font></b></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="24" nowrap="nowrap"> <div align="right"><font color="#1D148B" face="Verdana, Arial, Helvetica, sans-serif" size="2">Service 
+                Desired<font color="#FF0000">*</font> </font></div></td>
+            <td colspan="3" height="24"><b><font color="#1D148B" size="2"> 
+              <select name="SERVICE" id="Service_Desired" class="combo" tabindex="3" onblur="checkit()">
+                <option selected="selected" value="Select">Select Service</option>
+                
+                <option value="10"> Passport for Children upto 15 Years of Age </option>
+                
+                <option value="11"> Fresh Passport </option>
+                
+                <option value="12"> Re-issue of Passport </option>
+                
+                <option value="14"> New Passport in lieu of Damaged/Lost Passport </option>
+                
+              </select>
+              </font></b> </td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="20"> <div align="right"><font color="#1D148B" face="Verdana, Arial, Helvetica, sans-serif" size="2">Surname 
+                .<strong> </strong></font></div></td>
+            <td colspan="3" height="20" valign="top"><font color="#1D148B" size="2"> 
+              <input name="SURNAME" id="Surname" tabindex="4" class="textBoxDashed" size="60" maxlength="35" onkeyup="chkdata(3)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="20" valign="top"> 
+              <div align="right"><font color="#1D148B" face="Verdana, Arial, Helvetica, sans-serif" size="2">Given 
+                Name/s<font color="#FF0000">*</font></font></div></td>
+            <td colspan="3" height="20"><font color="#1D148B" size="2"> 
+              <input name="APPLNAME" tabindex="5" class="textBoxDashed" id="Given_Names" size="60" maxlength="40" onkeyup="chkdata(4)" type="text">
+             <br> (Names should be in full. Initials and titles such as Mr, Mrs, Dr 
+              etc. are not allowed)</font> </td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td colspan="4" height="26"> <strong><em> &nbsp;&nbsp;</em><em><font color="#990000">&nbsp;<font face="Verdana, Arial, Helvetica, sans-serif"><font size="2">if 
+              you</font></font></font> <font color="#990000" face="Verdana, Arial, Helvetica, sans-serif"><font size="2">have 
+              ever changed your name click the box </font></font> <font color="#990000"> 
+              <input name="CHNAME" value="checkbox1" tabindex="7" class="checkBGnone" onclick="change(document.OnlineForm)" type="checkbox">
+              <font face="Verdana, Arial, Helvetica, sans-serif"><font size="2">and 
+              indicate Previous Name(s) in full</font></font></font></em></strong><em><font color="#990000"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"> 
+              </font> </font></font></em><font color="#990000"><strong><em><font face="Verdana, Arial, Helvetica, sans-serif">&nbsp;</font></em></strong></font><strong><em>&nbsp;<font face="Arial, Helvetica, sans-serif" size="2"> 
+              </font> </em></strong></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="4"> <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Previous 
+                Name</font><font color="#81460c"> &nbsp;</font></font></div></td>
+            <td colspan="3" height="4"><font size="2"> 
+              <input name="PRVNAME" disabled="true" id="Previous_Name" class="textBoxDashed12" tabindex="7" size="33" maxlength="50" onkeyup="chkdata(6)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="19"> <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Sex</font><font color="#FF0000">*&nbsp;</font></font></div></td>
+            <td height="19" width="33%"><font size="2"> 
+              <select name="APPLSEX" tabindex="8" class="combo" id="Sex">
+                <option selected="selected" value="Select">Select Sex</option>
+                <option value="M">MALE</option>
+                <option value="F">FEMALE</option>
+                <option value="X">OTHERS</option>
+              </select>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              </font><font face="Verdana, Arial, Helvetica, sans-serif" size="2">&nbsp;</font></td>
+            <td height="19" width="15%"> <div align="right"><strong><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">&nbsp;</font></font></strong><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Date 
+                of Birth<strong><font color="#FF0000">*</font></strong></font></font></div></td>
+            <td height="19" width="27%"><b><font size="2"> 
+              <input name="APPLDOB" tabindex="9" id="Date_of_Birth" class="textBoxDashed" onfocus="javascript:vDateType='3'" onblur="DateFormat(this,this.value,event,true,'3')" onkeyup="DateFormat(this,this.value,event,false,'3')" size="13" maxlength="10" type="text">
+              </font></b><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#81460c"><font color="#0000FF" size="1">(DD/MM/YYYY)</font></font></font><font color="#0000FF" size="1">&nbsp; 
+              </font><font color="#0000FF"><b><font size="2"> </font></b></font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="13"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Place 
+                of Birth<strong><font color="#FF0000">*</font>&nbsp;</strong></font></div></td>
+            <td height="13" width="33%"><b><font size="2"> 
+              <input name="PLACBRTH" id="Place_of_Birth" class="textBoxDashed" tabindex="10" size="33" maxlength="50" onkeyup="chkdata(9)" type="text">
+              </font></b></td>
+            <td height="13" width="15%"> <div align="right"><font color="#000000" face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">District/Country</font></font><strong><font color="#FF0000" face="Arial, Helvetica, sans-serif" size="2">* 
+                </font></strong></div></td>
+            <td height="13"> <input name="BRTHDIST" id="DistrictCountry" class="textBoxDashed" tabindex="11" size="33" maxlength="50" onfocus="popUp(event,'t1')" onblur="popUp(event,'t1')" onkeyup="chkdata(10)" type="text"> 
+              <div id="t1" class="tip">If Born in India,write name of the District.Otherwise 
+                write Name of Country Of birth</div></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="11"> <div align="right"> <font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Qualification<strong>&nbsp;&nbsp; 
+                </strong></font></div></td>
+            <td height="11" width="33%"> <div align="left"><font size="2"> </font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b><font size="2"> 
+                <input name="EDUQ" class="textBoxDashed" id="Qualification" tabindex="12" size="33" maxlength="20" onfocus="popUp(event,'t3')" onblur="popUp(event,'t3')" onkeyup="chkdata(11)" type="text">
+                <div id="t3" class="tip">Write NIL if You Are Uneducated </div>
+                </font></b></font></font></div></td>
+            <td height="11" align="right" width="15%"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Profession</font><strong>&nbsp;<font color="#FF0000">&nbsp;</font></strong></font></td>
+            <td height="11"><b><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b><font size="2"> 
+              <input name="PROF" class="textBoxDashed" id="Profession" tabindex="13" size="33" maxlength="20" onfocus="popUp(event,'t4')" onblur="popUp(event,'t4')" onkeyup="chkdata(12)" type="text">
+              <div id="t4" class="tip">Employee Of Govt and PSU should write GOVT 
+                SERVICE/PSU SERVICE ,Others Should Write their Profession ,if 
+                Any </div>
+              </font></b></font></font></b></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="23"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Visible 
+                Mark<strong><font color="#FF0000">*</font></strong></font> </div></td>
+            <td height="23"><b><font size="2"> 
+              <input name="IMARK" class="textBoxDashed" id="Visible_Mark" tabindex="14" size="33" maxlength="35" onfocus="popUp(event,'t2')" onblur="popUp(event,'t2')" onkeyup="chkdata(13)" type="text">
+              </font></b> <div id="t2" class="tip">If you don't have any visible 
+                mark write NIL in textbox</div>
+              <b><font size="2"> </font></b></td>
+            <td height="23" nowrap="nowrap"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Height&nbsp;(cms)<strong><font color="#FF0000">*</font></strong></font></div></td>
+            <td height="23"><font size="2"><b><font size="2"><b><font size="2"> 
+              <input name="HIGHT" class="textBoxDashed" id="Height" tabindex="15" size="4" maxlength="3" onkeyup="chkdata(14)" type="text">
+              </font></b></font></b></font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="15"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Color 
+                of Eyes </font></div></td>
+            <td height="15"><b><font size="2"> 
+              <input name="COLOREYE" class="textBoxDashed" id="COLOREYE" tabindex="16" onkeyup="chkdata(15)" size="33" maxlength="20" type="text">
+              </font></b></td>
+            <td height="15" nowrap="nowrap"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Color 
+                of Hair </font></div></td>
+            <td height="15"><b><font size="2"> 
+              <input name="COLORHAIR" class="textBoxDashed" id="COLORHAIR" tabindex="17" onkeyup="chkdata(16)" size="33" maxlength="20" type="text">
+              </font></b></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="16"><font color="#1D148B">&nbsp;</font></td>
+            <td height="16">&nbsp;</td>
+            <td height="16">&nbsp;</td>
+            <td height="16">&nbsp;</td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="16"><div align="right"><font color="#1D148B"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Address to be 
+                Printed in Passport</font><b><font color="#FF0000" size="2">*</font></b></font></div></td>
+            <td height="16" width="33%"><b><font size="2"> 
+              <input name="PRESADD1" class="textBoxDashed" id="Address_to_be_Printed_in_Passport" tabindex="18" size="33" maxlength="35" onkeyup="chkdata(17)" type="text">
+              </font></b></td>
+            <td height="16" width="15%"><div align="right"><font color="#1D148B"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Other Address 
+                </font><strong><font color="#FF0000" size="2">*</font></strong></font></div></td>
+            <td height="16"><font size="2"> 
+              <input name="PERMADD1" class="textBoxDashed" id="Other_Address" tabindex="19" size="33" maxlength="35" onkeyup="chkdata(18)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td rowspan="2" valign="top"> <div align="justify"><font color="#1D148B"><b><font face="Arial, Helvetica, sans-serif" size="1">(At 
+                Least First Two Address Lines are to be filled)</font></b></font></div></td>
+            <td height="7" width="33%"><b><font size="2"> 
+              <input name="PRESADD2" class="textBoxDashed" id="Address_Line_1" size="33" tabindex="18" maxlength="35" onkeyup="chkdata(19)" type="text">
+              </font></b></td>
+            <td rowspan="2" valign="top" width="15%"> <div align="right"><b><font color="#81460c" face="Verdana, Arial, Helvetica, sans-serif" size="2"><strong><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="1">---
+                    </font></strong></font></b></div></td>
+            <td height="7"><font size="2"> 
+              <input name="PERMADD2" class="textBoxDashed" id="Address_Line_2" tabindex="19" size="33" maxlength="35" onkeyup="chkdata(20)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="11" width="33%"><b><font size="2"> 
+              <input name="PRESADD3" class="textBoxDashed" id="Other_Address_Line_1" tabindex="18" size="33" maxlength="35" onkeyup="chkdata(21)" type="text">
+              </font></b></td>
+            <td height="11"><font size="2"> 
+              <input name="PERMADD3" class="textBoxDashed" id="Other_Address_Line_2" tabindex="19" size="33" maxlength="35" onkeyup="chkdata(22)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="21"> <div align="right"><font color="#1D148B"><font face="Arial, Helvetica, sans-serif" size="2">Phone 
+                No&nbsp;</font></font></div></td>
+            <td height="21" width="33%"><font size="2"> 
+              <input name="PHONENO" class="textBoxDashed" id="Phone_No" tabindex="24" size="15" maxlength="15" onkeyup="chkdata(23)" type="text">
+              </font></td>
+            <td height="21" valign="middle" width="15%"> <div align="right"><font color="#1D148B"><font face="Arial, Helvetica, sans-serif" size="2">Mobile 
+                No<strong>&nbsp;&nbsp;</strong></font></font></div></td>
+            <td height="21" valign="middle"><font size="2"> 
+              <input name="MOBILENO" class="textBoxDashed" id="MOBILENO" tabindex="25" size="15" maxlength="15" onkeyup="chkdata(24)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="19"> <div align="right"><font color="#1D148B"><font face="Arial, Helvetica, sans-serif" size="2">Email 
+                Address&nbsp;</font></font></div></td>
+            <td height="19" width="33%"><font size="2"> 
+              <input name="EMAIL" class="TEXTBOXDASHED1" id="Email_Address" tabindex="26" size="27" maxlength="30" onkeyup="chkdata(25)" type="text">
+              </font></td>
+            <td height="19" valign="middle" width="15%">&nbsp;</td>
+            <td height="19" valign="middle">&nbsp;</td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td colspan="4" height="15"><strong><em>&nbsp;&nbsp;</em></strong><em><font face="Arial, Helvetica, sans-serif" size="2"><font color="#FF6600"><font color="#CCCCCC"><font color="#FF0000" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;<font color="#990000"><strong>Applicant's 
+              Family Information</strong></font></font><strong><font color="#990000">(All 
+              Names should be in full. Initials and titles such as Mr, Mrs, Dr 
+              etc. are not allowed.)</font></strong></font></font></font></em></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27"> <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Marital&nbsp;Status</font><strong><font color="#FF0000">*&nbsp;</font></strong></font></div></td>
+            <td colspan="3" height="27"><b><font size="2"> 
+              <select name="MRTLSTATUS" class="checkbox" id="Marital_Status" tabindex="27" onchange="showSpouse()">
+                <option selected="selected" value="Select">Select Marital Status</option>
+                <option value="0">Married</option>
+                <option value="1">Single</option>
+                <option value="2">Widow/Widower 
+                </option><option value="3">Divorcee</option>
+              </select>
+              </font></b><font size="2">&nbsp; </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Spouse's&nbsp;Name</font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="SPOUSENAME" class="textBoxDashed12" id="Spouses_Name" tabindex="28" size="33" maxlength="75" disabled="false" onkeyup="chkdata(27)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27"><div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Spouse's 
+                Nationality</font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="SPOUSENTL" disabled="false" class="textBoxDashed12" id="SPOUSENTL" tabindex="28" onkeyup="chkdata(28)" size="33" maxlength="20" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27"> <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Name of Applicant's Father </font><font color="#FF0000"><strong>*</strong></font></font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="FTHRNAME" class="textBoxDashed" id="Name_of_Applicants_Father" tabindex="29" size="40" maxlength="75" onkeyup="chkdata(29)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27"> <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Father's 
+                Birth Country </font></font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="FTHRBRTH" class="textBoxDashed" id="FTHRBRTH" tabindex="29" onkeyup="chkdata(30)" size="40" maxlength="20" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27"> <div align="justify"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Nationality 
+                of Father at the time of applicant's birth</font></font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="FTHRNTL" class="textBoxDashed" id="FTHRNTL" tabindex="29" onkeyup="chkdata(31)" size="40" maxlength="20" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27" nowrap="nowrap"> <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Name of Applicant's</font></font> <font color="#1D148B">Mother </font><strong><font color="#FF0000">*</font></strong></font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="MTHRNAME" class="textBoxDashed" id="Name_of_Applicants_Mother" tabindex="30" size="33" maxlength="75" onkeyup="chkdata(32)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27" nowrap="nowrap"> <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Mother's 
+                Birth Country</font></font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="MTHRBRTH" class="textBoxDashed" id="MTHRBRTH" tabindex="30" onkeyup="chkdata(33)" size="33" maxlength="20" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="27"> <div align="justify"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#1D148B">Nationality 
+                of Mother at the time of applicant's birth</font> </font></div></td>
+            <td colspan="3" height="27"><font size="2"> 
+              <input name="MTHRNTL" class="textBoxDashed" id="MTHRNTL" tabindex="30" onkeyup="chkdata(34)" size="33" maxlength="20" type="text">
+              </font> </td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td colspan="4" height="2">&nbsp;</td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td colspan="4" height="4"> <div align="left"><strong><em><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#990000">&nbsp;</font></font></em><font color="#990000"><em><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font face="Arial, Helvetica, sans-serif">If 
+                you have / had </font><font face="Arial, Helvetica, sans-serif" size="2"> valid or expired passport, please click on this box 
+                <input name="oldpassport" class="checkBGnone" id="oldpassport" tabindex="48" onclick="oldPassport(document.OnlineForm)" type="checkbox">
+                and fill the details below:</font></font></em></font></strong></div></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="2"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Old/Existing 
+                Passport No</font></div></td>
+            <td height="2" width="33%"><font size="2"> 
+              <input name="OLDPPTNO" tabindex="49" id="Old_Existing_Passport_No" class="textBoxDashed" size="12" maxlength="10" disabled="false" onkeyup="chkdata(36)" type="text">
+              </font> </td>
+            <td height="2" width="15%"> <div align="right"><font color="#1D148B"><font face="Arial, Helvetica, sans-serif" size="2">Issue 
+                Date&nbsp;&nbsp;</font></font></div></td>
+            <td height="2"><font size="2"><font size="2"><font size="1"> 
+              <input name="OLDPPTISSUDATE" tabindex="50" id="Issue_Date" class="textBoxDashed" size="13" maxlength="10" onfocus="javascript:vDateType='3'" onkeyup="DateFormat(this,this.value,event,false,'3')" onblur="DateFormat(this,this.value,event,true,'3')" disabled="false" type="text">
+              </font></font></font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#81460c"><font color="#0033FF" size="1">(DD/MM/YYYY)</font></font></font><font size="1">&nbsp; 
+              &nbsp; </font> </td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="2" bgcolor="#EAE9FC"> 
+              <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">Place 
+                of Issue</font></div></td>
+            <td height="2" width="33%"><font size="2"> 
+              <input name="OLDISSUPLAC" tabindex="51" id="Place_of_Issue" class="textBoxDashed" size="15" maxlength="15" disabled="false" onkeyup="chkdata(38)" type="text">
+              </font></td>
+            <td height="2" width="15%"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2">File 
+                Number&nbsp; </font></div></td>
+            <td height="2"><font size="2"> 
+              <input name="OLDFILENO" tabindex="52" class="textBoxDashed" id="OLDFILENO" size="12" maxlength="12" disabled="false" onkeyup="chkdata(39)" type="text">
+              </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td height="2"> <div align="right"><font color="#1D148B" face="Arial, Helvetica, sans-serif" size="2"> 
+                Date Of Expiry</font></div></td>
+            <td height="2"><font size="2"><font size="2"><font size="1"> 
+              <input name="OLDPPTEXPIRY" id="Date_Of_Expiry" tabindex="53" class="textBoxDashed" size="13" maxlength="10" onfocus="javascript:vDateType='3'" onkeyup="DateFormat(this,this.value,event,false,'3')" onblur="DateFormat(this,this.value,event,true,'3')" disabled="false" type="text">
+              </font><font size="2"><font size="2"><font size="1"> </font></font></font><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><font color="#81460c"><font color="#0033FF" size="1">(DD/MM/YYYY)</font></font></font><font size="1">&nbsp; 
+              </font><font size="1"> </font></font></font></td>
+            <td colspan="2" height="2"><font size="2">&nbsp; </font></td>
+          </tr>
+          <tr bgcolor="#EAE9FC"> 
+            <td colspan="4" height="25">
+              <div align="center">
+                <input name="Submit" value="Save &amp; Print" class="LoginButton" type="submit">
+              </div>
+              <div align="left"> 
+              </div></td>
+          </tr>
+        </tbody></table>
+      
+      </td>
+     
+    </tr>
+   
+		
+  </tbody></table>
+</form>
+
+
+
+</body></html>

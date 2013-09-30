@@ -1,0 +1,61 @@
+.BodyText {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-style: normal;
+	color: #666666;
+}
+.mytable td { 
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px; 
+	font-style: normal;
+}
+.Underline {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-style: normal;
+	line-height: normal;
+	font-variant: normal;
+	color: #333333;
+	text-decoration: underline;
+}
+.SubHead {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: bold;
+	color: #333333;
+}
+.smallFont {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.copyright {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #999999;
+}
+.HeaderName {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bolder;
+	text-transform: capitalize;
+	font-style: normal;
+	line-height: normal;
+	font-variant: normal;
+	color: #FFFFFF;
+}
+.box {
+	BORDER-RIGHT: #ffffff 1px ridge; BORDER-TOP: #ffffff 1px ridge; FONT-WEIGHT: normal; FONT-SIZE: 11px; BORDER-LEFT: #ffffff 1px ridge; COLOR: #000000; BORDER-BOTTOM: #ffffff 1px ridge; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+.PANbox {
+	BORDER-RIGHT: #ffffff 2px ridge; BORDER-TOP: #ffffff 2px ridge; FONT-WEIGHT: normal; FONT-SIZE: 12px; BORDER-LEFT: #ffffff 2px ridge; COLOR: #000000; BORDER-BOTTOM: #ffffff 2px ridge; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+.Textbox {
+	 COLOR: #000000; BORDER-BOTTOM: #ffffff 1px ridge; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+
+ .content{
+     display: none;
+     color: red; 
+    }
+

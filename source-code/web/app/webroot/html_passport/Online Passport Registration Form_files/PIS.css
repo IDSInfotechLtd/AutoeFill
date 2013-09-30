@@ -1,0 +1,399 @@
+.textBoxDashed {
+	text-transform: uppercase;
+	color: #333333;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+
+}
+.textBoxDashed12 {
+	text-transform: uppercase;
+	color:#333333;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color:#CCFFFF;
+	border: 1px solid #999999;
+
+}
+
+
+.textBoxDashed1 {	
+	color: #333333;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+
+}
+
+.checkBGnone{
+		background-color: none;
+}
+
+.FormButton{
+	background-color: #CCCCFF;
+	border:0px;
+	letter-spacing: 2px;
+	text-transform: lowercase;
+	width: 75px;
+
+
+
+
+
+}
+
+.scrollsunil{
+	scrollbar-arrow-color:#E0E0E0;
+    scrollbar-base-color:#FFFFFF;
+	scrollbar-shadow-color:#E0E0E0;
+	scrollbar-3dlight-color:#E0E0E0;
+	scrollbar-darkshadow-color:#E0E0E0;
+	scrollbar-highlight-color:#E0E0E0
+}
+
+
+textarea {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #006666;
+	background-color: #FFFFFF;
+	border: 0px ;
+    scrollbar-arrow-color:#E0E0E0;
+    scrollbar-base-color:#FFFFFF;
+	scrollbar-shadow-color:#E0E0E0;
+	scrollbar-3dlight-color:#E0E0E0;
+	scrollbar-darkshadow-color:#E0E0E0;
+	scrollbar-highlight-color:#E0E0E0;
+}
+
+th {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #C1245F;
+	cursor: default;
+	text-transform: lowercase;
+	text-align: right;
+	padding-left: 5px;
+	padding-right: 5px;
+
+
+
+}
+.text {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	font-color: #999999;
+	color: #003366;
+	cursor: default;
+
+
+}
+h2 {
+	font-family: Courier New, Courier, mono;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	cursor: default;
+
+}
+select {
+	
+	color:#333333; 
+	font-weight: none; 
+	text-decoration: none; 
+	background-color : #FFFFFF; 
+	border: 0px solid #E0E0E0; font-style:normal; font-variant:normal; font-size:9pt; font-family:verdana; 
+
+}
+.select1 {
+	
+	color:#333333; 
+	font-weight: none; 
+	text-decoration: none; 
+	background-color : #FFFFFF; 
+	border: 0px solid #E0E0E0; 
+	font-style:normal; 
+	font-variant:normal;
+	font-size:9pt; 
+	font-family:verdana; 
+	width:180pt
+}
+.select2 {
+	
+	color:#333333; 
+	font-weight: none; 
+	text-decoration: none; 
+	background-color : #FFFFFF; 
+	border: 0px solid #E0E0E0;
+	font-style:normal; font-variant:normal; 
+	font-size:9pt; 
+	font-family:verdana; 
+	width:280pt
+}
+.select3 {
+	text-transform: uppercase;
+	color:#333333; 
+	font-weight: none; 
+	text-decoration: none; 
+	background-color : #FFCCFF; 
+	border: 0px none;
+	font-style:normal;
+	font-variant:normal; 
+	font-size:9pt; 
+	font-family:verdana; width:200pt
+}
+table {
+	background-image: url('none');
+}
+div {
+    scrollbar-arrow-color:#E0E0E0;
+    scrollbar-base-color:#FFFFFF;
+	scrollbar-shadow-color:#E0E0E0;
+	scrollbar-3dlight-color:#E0E0E0;
+	scrollbar-darkshadow-color:#E0E0E0;
+	scrollbar-highlight-color:#E0E0E0;
+}
+
+.header { background-color:#cccCCC; }
+.FormSubHeadScroll { overflow: auto; width: 100%; height:50px; padding:0px; margin: 0px }
+.FormSubHeadScroll2 {overflow: auto; width: 100%; height:200px; padding:0px; margin: 0px }
+.FormSubHeadScroll3 { overflow: auto; width: 100%; height:135px; padding:0px; margin: 0px }
+.FormSubHeadScroll4 { overflow: auto; width: 100%; height:300px; padding:0px; margin: 0px }
+.FormSubHeadScroll5{ overflow: auto; width: 100%; height:70px; padding:0px; margin: 0px }
+.FormSubTableScroll { overflow: auto; width: 100%; height:110px; padding:0px; margin: 0px }
+.FormSubTableScroll1 { overflow: auto; width: 100%; height:400px; padding:0px; margin: 0px }
+.MainFormScroll { overflow: auto; width: 100%; height:308px; padding:0px; margin: 0px }
+.MainFormScroll2 { overflow: auto; width: 100%; height:200px; padding:0px; margin: 0px }
+.DatabaseScroll { overflow: auto; width: 725px; height:285px; padding:0px; margin: 0px }
+.DatabaseScroll2 { overflow: auto; width: 725px; height:125px; padding:0px; margin: 0px }
+.scroll2 { overflow: auto; width: 100%; height:350px; padding:0px; margin: 0px; background-image: url('images/scroll2BG.gif'); }
+.scroll3 { overflow: auto; width: 100%; height:75px; padding:0px; margin: 0px }.links {
+	text-decoration: none;
+}
+.tableBorder1 {
+	border: 1px solid #225E9A;
+}
+.scrollagent { overflow: auto; width: 100%; height:600px; padding:0px; margin: 0px }.links {
+	text-decoration: none;
+
+
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	width: 75px;
+	font-weight: bold;
+	background-image: url('images/rightButton1.gif');
+	color: #CCFF00;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	cursor: hand;
+	border: 0px none;
+
+
+
+
+
+}
+.FormButton2 {
+	border:0px none;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	width: 75px;
+	font-weight: bold;
+	background-image: url('images/rightButton2.gif');
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	cursor: hand;
+	height: 19px
+
+
+}
+.FormButton3 {
+	border:0px none;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	width: 75px;
+	font-weight: bold;
+	background-image: url('images/rightButton3.gif');
+	color: #CCFF00;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	cursor: hand
+
+}
+.FormButton4 {
+	border:0px none;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	width: 75px;
+	font-weight: bold;
+	background-image: url('images/rightButton4.gif');
+	color: #CCFF00;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	cursor: hand
+
+}
+.FormButton5{
+	border:0px none;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	width: 115px;
+	font-weight: bold;
+	background-image: url('images/buttonBG.gif');
+	color: #FFF888;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	cursor: hand;
+	height: 19px
+
+
+}
+.bgRepeat {
+	background-repeat: no-repeat;
+}
+.DefaultCursor {
+	cursor: default;
+}
+.LoginButton {
+	
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	
+	font-weight: bold;
+	background-color: #A59EF1;
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	
+	cursor:pointer;
+	border-bottom-style:outset;
+	
+
+}
+
+.LinkButton {
+	
+	
+	text-transform: capitalize;
+	font-weight: bold;
+	background-color:#FF8000;
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	cursor:pointer;
+	border-bottom-style:ridge;
+
+}
+
+.LoginButton1 {
+	border:0px none;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	width: 210px;
+	font-weight: bold;
+	background-color: #FF7920;
+	color: #FFFF99;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	height: 19px
+
+}
+.textBoxDisplay {
+	color: #333333;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	border: none;
+	font-weight: bold;
+
+}
+.submenu {
+	padding-left: 25px;
+}
+.FormSubheading {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #772600;
+	font-weight: bold;
+	text-transform: capitalize;
+	border-top-style: solid;
+	border-top-color: #007DB6;
+	text-indent: 3px;
+	border-left-style: solid;
+	border-left-color: #007DB6;
+; border-top-width: 1px; border-left-width: 1px
+
+
+
+
+
+
+}
+.FormGOButton {
+
+	border:0px none;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	font-weight: bold;
+	background-image: url('images/rightButton3.gif');
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	cursor: hand
+}
+.threeBorder {
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #999999;
+	border-bottom-color: #999999;
+	border-left-color: #999999;
+}
+.FourBorderCopy {
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #999999;
+	border-bottom-color: #999999;
+	border-left-color: #999999;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #999999;
+
+}
+.noUnderline {
+	text-decoration: none;
+}
+
+.inputuppercase {
+	text-transform: uppercase;
+	color: #333333;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+}
+
+.tip {
+font:12px/15px Arial,Helvetica,sans-serif; 
+border:solid 1px #666666;
+width:200px; 
+padding:1px;
+position:absolute;
+z-index:100; 
+visibility:hidden;
+color:#333333; 
+top:20px; left:90px;
+background-color:#ffffcc; 
+layer-background-color:#ffffcc;
+}
