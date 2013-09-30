@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Blue"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scollList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+	        <RadioGroup
+	            android:id="@+id/selectItem"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	        </RadioGroup>
+
+    </ScrollView>
+    <Button
+		android:id="@+id/removeSelectedItem"
+		android:layout_below="@+id/scollList"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:text="@string/remove_profile_btn"	
+		android:textColor="@color/White"
+		android:background="@drawable/tab_mid_blue"	
+		android:paddingLeft="@dimen/medium_button_text_padding_left"
+		android:paddingRight="@dimen/medium_button_text_padding_right"
+		android:layout_marginTop="@dimen/medium_del_btn_text_margin_top" />
+</RelativeLayout>

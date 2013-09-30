@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".MainActivity" >
+
+    <RelativeLayout
+        android:id="@+id/titleBarLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/btn_mid" >
+	    
+        <Button
+	        android:id="@+id/logout"
+	        android:layout_width="@dimen/small_header_btn_width"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:background="@drawable/tab_mid_blue"
+	        android:text="@string/btn_txt_logout"
+	        android:textColor="@color/White"
+	        android:textSize="@dimen/small_header_btn_size" />
+        
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/home_screen_heading"
+            android:textColor="@color/White"
+            android:textStyle="bold" 
+            android:textSize="@dimen/large_btn_text_size"/>
+	</RelativeLayout>
+	
+    <RelativeLayout 
+        android:id="@+id/homeButtonsLayout"
+        android:layout_centerInParent="true"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content">
+
+        <Button
+		    android:id="@+id/btnSearch"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:layout_centerHorizontal="true"
+		    android:background="@drawable/search_form"
+		    android:tag="Search" />
+	    <Button
+	        android:layout_marginTop="@dimen/small_btn_top_margin"
+	        android:layout_marginLeft="@dimen/small_btn_left_margin"
+			android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/btn_edit_profile"
+	        android:background="@drawable/edit_profile" />
+	    <Button
+	        android:layout_below="@+id/btn_edit_profile"
+	        android:layout_marginLeft="@dimen/small_btn_left_margin"
+			android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/btn_settings"
+	        android:background="@drawable/setting" />
+		<Button
+	        android:layout_below="@+id/btn_edit_profile"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="@dimen/small_btn_top_margin"
+			android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/btn_viewpdf"
+	        android:background="@drawable/pdf_form" />
+		<Button
+	        android:layout_alignParentRight="true"
+	        android:layout_marginTop="@dimen/small_btn_top_margin"
+	        android:layout_marginRight="@dimen/small_btn_right_margin"
+			android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/btn_viewdownloadedform"
+	        android:background="@drawable/download_form" />
+		<Button
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/btn_viewdownloadedform"
+	        android:layout_marginRight="@dimen/small_btn_right_margin"
+			android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/btn_createNewProfile"
+	        android:background="@drawable/new_profile" />
+		<ImageView
+		    android:id="@+id/imageView1"
+		    android:layout_width="@dimen/small_image_btn_width"
+		    android:layout_height="wrap_content"
+		    android:layout_centerHorizontal="true"
+		    android:layout_centerVertical="true"
+		    android:contentDescription="@string/description"
+		    android:src="@drawable/logo" />
+        
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,102 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+	<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_layout"
+        android:background="@drawable/btn_mid">
+
+        <TextView
+            android:id="@+id/form_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/medium_heading_text_size"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/medium_button_text_padding_left"
+            android:layout_marginLeft="@dimen/medium_bck_button_margin_left"
+            android:textColor="@color/White"
+            android:background="@drawable/back"
+            android:text="@string/btn_txt_back" />
+        
+        <Button
+            android:id="@+id/btn_Change_Profile"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/medium_bck_btn_height"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/White"
+            android:background="@drawable/tab_mid_blue"            
+            android:text="@string/btn_txt_change_profile" 
+            android:textSize="@dimen/medium_profile_btn_text_size"
+            android:textStyle="bold"/>
+        
+    </RelativeLayout>
+	<WebView
+		android:id="@+id/web_html_form"
+		android:layout_below="@+id/header_layout"
+		android:layout_above="@+id/bottomLayout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+	<RelativeLayout
+		android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="@dimen/medium_list_padding"
+	    android:id="@+id/bottomLayout"
+	    android:layout_alignParentBottom="true">
+		<Button 
+			android:id="@+id/btnSavePage"
+		    android:layout_width="@dimen/medium_btn_width"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/btn"
+		    android:textColor="@color/White"
+		    android:text="@string/btn_txt_savepage"/>
+		<Button 
+			android:id="@+id/btnSaveaspdf"
+			android:layout_marginLeft="@dimen/medium_btn_left_margin"
+			android:layout_toRightOf="@+id/btnSavePage"
+		    android:layout_width="@dimen/medium_btn_width"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/btn"
+		    android:textColor="@color/White"
+		    android:text="@string/btn_txt_saveaspdf"/>
+		<Button 
+			android:id="@+id/btnprint"
+			android:layout_marginTop="@dimen/medium_btn_top_margin"
+		    android:layout_width="@dimen/medium_btn_width"
+		    android:layout_below="@+id/btnSaveaspdf"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/btn"
+		    android:textColor="@color/White"
+		    android:text="@string/btn_txt_print"/>
+		<Button 
+			android:id="@+id/btnemailpdf"
+			android:layout_marginTop="@dimen/medium_btn_top_margin"
+			android:layout_marginLeft="@dimen/medium_btn_left_margin"
+			android:layout_toRightOf="@+id/btnprint"
+		    android:layout_below="@+id/btnSaveaspdf"
+		    android:layout_width="@dimen/medium_btn_width"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/btn"
+		    android:textColor="@color/White"
+		    android:text="@string/btn_txt_emailpdf"/>
+	</RelativeLayout>
+	
+</RelativeLayout>
+
+
+

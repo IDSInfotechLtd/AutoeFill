@@ -1,0 +1,166 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg" >
+    <RelativeLayout
+	    android:id="@+id/topheader"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:background="@drawable/btn_mid" >
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:layout_marginTop="@dimen/large_edit_text_top_margin"
+	        android:text="@string/search_screen_heading"
+	        android:textColor="@color/White"
+	        android:textSize="@dimen/large_heading_text_size"
+	        android:textStyle="bold" />
+	
+	    <Button
+	        android:id="@+id/search_form"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:layout_marginRight="@dimen/large_search_btn_right_margin"
+	        android:background="@drawable/tab_mid_blue"
+	        android:text="@string/btn_txt_search"
+	        android:textColor="@color/White"
+	        android:textSize="@dimen/large_header_btn_size" />
+	
+	    <Button
+			android:id="@+id/backbtn"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:paddingLeft="@dimen/large_button_text_padding_left"
+	        android:textColor="@color/White"
+	        android:background="@drawable/back"
+	        android:text="@string/btn_txt_back"/>
+
+</RelativeLayout>
+   
+<ScrollView
+    android:id="@+id/searchview_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+	android:layout_marginTop="@dimen/large_layout_top_margin" 
+	android:layout_below="@+id/topheader" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txt_keyword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/search_bg"
+            android:hint="@string/edit_text_search"
+            android:inputType="textPersonName"
+            android:paddingLeft="@dimen/large_edit_text_padding_left" >
+            <requestFocus />
+        </EditText>
+        
+        <ImageView
+            android:id="@+id/searchmagnifier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/searchfilter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/large_image_right_margin"
+            android:src="@drawable/magnifier"
+            android:contentDescription="@string/image_description" />
+
+        <TextView
+            android:id="@+id/searchfilter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/txt_keyword"
+            android:layout_marginTop="@dimen/large_btn_top_margin"
+            android:background="@color/Red"
+            android:paddingLeft="@dimen/large_edit_text_padding_left"
+            android:text="@string/lbl_txt_searchfilter"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/large_heading_text_size"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/radio_national_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchfilter"
+            android:layout_marginTop="@dimen/large_btn_top_margin"
+            android:checked="true"
+            android:paddingLeft="@dimen/large_radio_padding_left"
+            android:text="@string/radio_txt_national" />
+
+        <RadioButton
+            android:id="@+id/radio_district_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radio_national_search"
+            android:layout_marginTop="@dimen/large_radio_top_margin"
+            android:paddingLeft="@dimen/large_radio_padding_left"
+            android:text="@string/radio_txt_district" />
+
+        <Button
+            android:id="@+id/spn_country"
+            android:layout_width="@dimen/large_spinner_width"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/radio_district_search"
+            android:layout_marginTop="@dimen/large_btn_top_margin"
+            android:background="@drawable/drop_down"
+            android:hint="@string/hint_select_country"
+            android:textColor="@color/Black" />
+        
+        <Button
+            android:id="@+id/spn_state"
+            android:hint="@string/hint_select_state"
+            android:textColor="@color/Black"
+            android:layout_width="@dimen/large_spinner_width"
+            android:layout_marginLeft="@dimen/large_radio_left_margin"
+            android:background="@drawable/drop_down"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spn_country"
+            android:layout_marginTop="@dimen/large_checkbox_btn_top_margin" />
+         <Button
+            android:id="@+id/spn_district"
+            android:layout_width="@dimen/large_spinner_width"
+            android:layout_marginLeft="@dimen/large_radio_left_margin"
+            android:background="@drawable/drop_down"
+            android:textColor="@color/Black"
+            android:hint="@string/hint_select_district"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spn_state"
+            android:layout_marginTop="@dimen/large_checkbox_btn_top_margin" />
+         <Button
+            android:id="@+id/spn_category"
+            android:layout_width="@dimen/large_spinner_width"
+            android:layout_marginLeft="@dimen/large_radio_left_margin"
+            android:background="@drawable/drop_down"
+            android:textColor="@color/Black"
+            android:hint="@string/hint_select_category"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spn_district"
+            android:layout_marginTop="@dimen/large_checkbox_btn_top_margin" />
+
+    </RelativeLayout>
+</ScrollView>
+
+
+
+</RelativeLayout>

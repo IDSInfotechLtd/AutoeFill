@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg" >
+
+    <RelativeLayout
+        android:id="@+id/topheader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center" 
+        android:background="@drawable/btn_mid">
+        
+        <TextView 
+            android:id="@+id/textView1" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_alignParentTop="true" 
+            android:layout_centerHorizontal="true" 
+            android:text="@string/login_screen_heading" 
+            android:textColor="@color/White" 
+            android:textSize="@dimen/small_heading_text_size" 
+            android:textStyle="bold" /> 
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/small_edit_text_layout_height"
+            android:background="@drawable/large_textbox"
+            android:ems="@integer/small_edt_txt_ems"
+            android:hint="@string/edit_text_username" 			            
+            android:layout_marginLeft="@dimen/small_edit_text_margin_left"
+            android:layout_marginRight="@dimen/small_edit_text_margin_right"
+            android:inputType="textPersonName"
+            android:paddingLeft="@dimen/small_edit_text_padding_left" />
+        
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/small_edit_text_layout_height"
+            android:layout_below="@+id/username"
+            android:layout_marginTop="@dimen/small_edit_text_top_margin"
+            android:background="@drawable/large_textbox"
+            android:hint="@string/edit_text_password"
+            android:layout_marginLeft="@dimen/small_edit_text_margin_left"
+            android:layout_marginRight="@dimen/small_edit_text_margin_right"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/small_edit_text_padding_left" />
+       
+        <Button
+            android:id="@+id/loginbutton"
+            android:layout_width="@dimen/small_btn_width"
+            android:layout_height="@dimen/small_btn_height"
+            android:layout_below="@id/password"
+            android:layout_marginTop="@dimen/medium_btn_top_margin"
+            android:background="@drawable/bluelselectorbtn"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_marginLeft="@dimen/small_login_btn_margin_left"
+            android:text="@string/btn_text_login"
+            android:textColor="@color/White" />
+        <Button
+            android:id="@+id/registrationbutton"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/small_btn_width"
+            android:layout_height="@dimen/small_btn_height"
+            android:layout_below="@+id/password"
+            android:layout_marginTop="@dimen/small_login_btn_top_margin"
+            android:background="@drawable/bluelselectorbtn"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_marginRight="@dimen/small_login_btn_margin_right"
+            android:text="@string/btn_text_register"
+            android:textColor="@color/White" />
+        <Button
+	        android:id="@+id/skipbutton"
+	        android:layout_width="@dimen/small_btn_width"
+	        android:layout_height="@dimen/small_btn_height"
+	        android:layout_below="@+id/registrationbutton"
+	        android:layout_marginTop="@dimen/small_login_btn_top_margin"
+	        android:background="@drawable/blueselectorbtnlarge"
+	        android:text="@string/btn_text_skip"
+	        android:layout_centerHorizontal="true"
+	        android:textColor="@color/White" />
+    </RelativeLayout>
+
+</RelativeLayout>

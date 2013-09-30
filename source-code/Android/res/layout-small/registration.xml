@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:id="@+id/mainLayout">
+
+<RelativeLayout 
+    android:id="@+id/topheader"
+    android:layout_alignParentTop="true"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_mid"
+    android:gravity="center">
+    
+    <TextView
+	    android:id="@+id/textView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:text="@string/registration_screen_heading"
+	    android:textColor="@color/White"
+	    android:textSize="@dimen/small_heading_text_size"
+	    android:textStyle="bold" />
+
+</RelativeLayout>
+<RelativeLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/small_edit_text_layout_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="@dimen/small_edit_text_padding_left" 
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/small_login_btn_margin_left"
+        android:layout_marginRight="@dimen/small_login_btn_margin_right"
+        android:hint="@string/edit_text_username"
+        android:background="@drawable/large_textbox"
+        android:inputType="textPersonName" />
+   <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/small_edit_text_layout_height"  
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/username"
+        android:paddingLeft="@dimen/small_edit_text_padding_left" 
+        android:layout_marginTop="@dimen/small_edit_text_top_margin"
+        android:layout_marginLeft="@dimen/small_login_btn_margin_left"
+        android:layout_marginRight="@dimen/small_login_btn_margin_right"
+        android:background="@drawable/large_textbox"
+        android:hint="@string/edit_text_password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/confirmpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/small_edit_text_layout_height"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/small_edit_text_top_margin"
+        android:paddingLeft="@dimen/small_edit_text_padding_left"
+        android:layout_marginLeft="@dimen/small_login_btn_margin_left"
+        android:layout_marginRight="@dimen/small_login_btn_margin_right" 
+        android:background="@drawable/large_textbox"
+        android:hint="@string/edit_text_confirm_password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/registerbutton"
+        android:layout_width="@dimen/small_btn_width"
+        android:layout_height="@dimen/small_btn_height"
+        android:layout_below="@+id/confirmpassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/small_login_btn_top_margin"
+        android:textColor="@color/White"
+        android:background="@drawable/blueselectorbtnlarge"
+        android:text="@string/btn_text_register" />
+
+</RelativeLayout>
+
+
+
+</RelativeLayout>

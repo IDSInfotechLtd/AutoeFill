@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg" >
+
+    <RelativeLayout
+        android:id="@+id/lLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/btn_mid" >
+
+        <TextView
+            android:id="@+id/settingsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/medium_edit_text_top_margin"
+            android:text="@string/settings_title"
+            android:textColor="@color/White"
+            android:textSize="@dimen/medium_heading_text_size"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/backbtn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="@dimen/medium_header_btn_width"
+            android:layout_height="@dimen/medium_header_btn_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+   			android:gravity="center_vertical"
+            android:background="@drawable/back"
+            android:paddingLeft="@dimen/medium_button_text_padding_left"
+            android:layout_marginLeft="@dimen/medium_bck_button_margin_left"
+            android:text="@string/back_button"
+            android:textColor="@color/White"
+            android:textSize="@dimen/medium_btn_text_size" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lLayout" >
+
+        <Button
+            android:id="@+id/delAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/medium_settings_btn_height"
+            android:layout_below="@+id/pwdText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/medium_settings_btn_top_margin"
+            android:background="@drawable/btn_large"
+            android:text="@string/delete_acc"
+            android:textColor="@color/White"
+            android:textSize="@dimen/medium_btn_text_size" />
+
+        <Button
+            android:id="@+id/delForms"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/medium_settings_btn_height"
+            android:layout_below="@+id/delAccount"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/medium_btn_top_margin"
+            android:background="@drawable/btn_large"
+            android:text="@string/delete_forms"
+            android:textColor="@color/White"
+            android:textSize="@dimen/medium_btn_text_size" />
+
+        <Button
+            android:id="@+id/delProfiles"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/medium_settings_btn_height"
+            android:layout_below="@+id/delForms"
+            android:layout_marginTop="@dimen/medium_btn_top_margin"
+            android:background="@drawable/btn_large"
+            android:layout_centerHorizontal="true"
+            android:text="@string/delete_profiles"
+            android:textColor="@color/White"
+            android:textSize="@dimen/medium_btn_text_size" />
+
+        <TextView
+            android:id="@+id/language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/langSpinner"
+            android:layout_alignBottom="@+id/langSpinner"
+            android:layout_alignLeft="@+id/profile"
+            android:text="@string/language"
+            android:textSize="@dimen/medium_subheading_text_size"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/langSpinner"
+            android:layout_width="@dimen/medium_edit_text_layout_width"
+            android:layout_height="@dimen/medium_edit_text_layout_height"
+            android:layout_alignLeft="@+id/profileSpinner"
+            android:layout_below="@+id/profileSpinner"
+            android:layout_marginTop="@dimen/medium_settings_edit_text_margin_top"
+            android:background="@drawable/drop_down"
+            android:clickable="false"
+            android:ems="@integer/medium_edt_txt_ems"
+            android:enabled="false"
+            android:inputType="none"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            android:text="@string/lang_value"
+            android:textColor="@color/Black"
+            android:paddingRight="@dimen/medium_text_padding_right"
+            android:textSize="@dimen/medium_subheading_text_size" />
+
+        <EditText
+            android:id="@+id/pwdText"
+            android:layout_width="wrap_content"
+            android:gravity="bottom"
+            android:layout_height="@dimen/medium_edit_text_layout_height"
+            android:layout_alignLeft="@+id/langSpinner"
+            android:layout_alignRight="@+id/langSpinner"
+            android:layout_below="@+id/langSpinner"
+            android:layout_marginTop="@dimen/medium_settings_edit_text_margin_top"
+            android:ems="@integer/medium_edt_txt_ems"
+            android:inputType="textPassword"
+            android:padding="@dimen/profile_btn_padding"
+            android:textSize="@dimen/medium_subheading_text_size" />
+
+        <TextView
+            android:id="@+id/profileSpinner"
+            android:layout_width="@dimen/medium_edit_text_layout_width"
+            android:layout_height="@dimen/medium_edit_text_layout_height"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/medium_edit_text_left_margin"
+            android:layout_marginTop="@dimen/medium_edit_text_top_margin"
+            android:layout_toRightOf="@+id/language"
+            android:background="@drawable/drop_down"
+            android:hint="@string/hint_select_profile"
+            android:inputType="none"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            android:paddingTop="@dimen/medium_text_top_padding"
+            android:textColor="@color/Black"
+            android:paddingRight="@dimen/medium_text_padding_right"
+            android:textSize="@dimen/medium_subheading_text_size" />
+
+        <TextView
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/profileSpinner"
+            android:layout_alignBottom="@+id/profileSpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/medium_text_margin_left"
+            android:text="@string/profile"
+            android:textSize="@dimen/medium_subheading_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/pwdText"
+            android:layout_alignBottom="@+id/pwdText"
+            android:layout_alignLeft="@+id/language"
+            android:text="@string/password"
+            android:textSize="@dimen/medium_subheading_text_size"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    
+</RelativeLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+	android:id="@+id/listLayout"
+    android:padding="6dip">
+    
+	    <!-- File Name -->
+	   <TextView
+			android:id="@+id/lefttext"	
+			android:layout_width="@dimen/small_list_item_layout_width"
+			android:layout_height="@dimen/small_list_item_layout_height"	
+			android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true"
+			android:paddingLeft="@dimen/small_list_padding"	
+			android:textStyle="bold"
+			style="@style/ellipsetext"
+			/>
+
+       <!-- File Created Date -->
+	   <TextView
+	       android:id="@+id/righttext"
+	       android:layout_width="@dimen/small_list_item_date_layout_width"
+	       android:layout_height="@dimen/small_list_item_layout_height"
+	       android:layout_alignBaseline="@+id/lefttext"
+	       android:layout_alignBottom="@+id/lefttext"
+	       android:paddingRight="@dimen/small_list_padding"
+	       android:layout_alignParentRight="true"/>
+
+   </RelativeLayout>
